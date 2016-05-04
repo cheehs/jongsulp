@@ -1,0 +1,14 @@
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\bin\Release\appbase.exe.config
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\obj\Release\appbase.csproj.ResolveComReference.cache
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\bin\Release\appbase.exe
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\bin\Release\appbase.pdb
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\obj\Release\MainWindow.g.cs
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\obj\Release\App.g.cs
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\obj\Release\appbase_MarkupCompile.cache
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\obj\Release\appbase_MarkupCompile.lref
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\obj\Release\MainWindow.baml
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\obj\Release\appbase.g.resources
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\obj\Release\appbase.Properties.Resources.resources
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\obj\Release\appbase.csproj.GenerateResource.Cache
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\obj\Release\appbase.exe
+C:\Users\dexon\Desktop\기타\강의\7학기\종합설계프로젝트\개발\appbase\appbase\obj\Release\appbase.pdb
