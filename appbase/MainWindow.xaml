@@ -17,6 +17,7 @@
         <Button x:Name="button_graph" Content="graph" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Margin="0,250,9.5,0" Click="button_graph_Click"/>
         <TextBox x:Name="textBox1" HorizontalAlignment="Right" Height="20" TextWrapping="Wrap" Text="y=log(x)" VerticalAlignment="Top" Width="100" Margin="0,200,9.5,0"/>
         <Image x:Name="image_Graph" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,143,80"/>
+        <Button x:Name="button" Content="Clear" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Margin="0,300,9.5,0" Click="button_Click"/>
 
     </Grid>
 </Window>

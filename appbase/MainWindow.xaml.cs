@@ -183,5 +183,10 @@ namespace appbase
                 }
             }
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            image_Graph.Source = null;
+        }
     }
 }
