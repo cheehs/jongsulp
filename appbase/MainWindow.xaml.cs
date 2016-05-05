@@ -18,6 +18,9 @@ using Microsoft.Office.Core;
 using Microsoft.Office.Interop.PowerPoint;
 using System.Windows.Forms;
 using System.IO;
+using WolframAlphaNET;
+using WolframAlphaNET.Misc;
+using WolframAlphaNET.Objects;
 
 namespace appbase
 {
@@ -144,6 +147,41 @@ namespace appbase
 
             slide++;
             DisplayPPTimage(slide);
+        }
+
+        private void button_graph_Click(object sender, RoutedEventArgs e)
+        {          
+            plot_Graph(textBox1.Text);
+            textBox1.Text = "";
+        }
+
+        private void plot_Graph(string equations)
+        {
+            WolframAlpha wolfram = new WolframAlpha("K8WRVX-A3Y7YUUQAV");
+            
+            QueryResult results = wolfram.Query(equations);
+
+            if (results != null)
+            {
+                foreach (Pod pod in results.Pods)
+                {
+                    if (pod.SubPods != null)
+                    {
+                        foreach (SubPod subPod in pod.SubPods)
+                        {
+                            if (pod.Title.Contains("Plot") || pod.Title.Contains("plot"))
+                            {
+                                BitmapImage temp = new BitmapImage();
+                                temp.BeginInit();
+                                temp.UriSource = new Uri(subPod.Image.Src);
+                                temp.EndInit();
+
+                                image_Graph.Source = temp;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

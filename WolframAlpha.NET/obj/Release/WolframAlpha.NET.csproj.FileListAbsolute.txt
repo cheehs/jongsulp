@@ -1,0 +1,16 @@
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\bin\Release\WolframAlpha.NET.XML
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\bin\Release\WolframAlpha.NET.dll
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\bin\Release\WolframAlpha.NET.pdb
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\bin\Release\RestSharp.dll
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\bin\Release\RestSharp.xml
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\obj\Release\WolframAlpha.NET.csprojResolveAssemblyReference.cache
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\obj\Release\WolframAlpha.NET.dll
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\obj\Release\WolframAlpha.NET.pdb
+C:\Git\jongsulp\WolframAlpha.NET\bin\Release\WolframAlpha.NET.XML
+C:\Git\jongsulp\WolframAlpha.NET\bin\Release\WolframAlpha.NET.dll
+C:\Git\jongsulp\WolframAlpha.NET\bin\Release\WolframAlpha.NET.pdb
+C:\Git\jongsulp\WolframAlpha.NET\bin\Release\RestSharp.dll
+C:\Git\jongsulp\WolframAlpha.NET\bin\Release\RestSharp.xml
+C:\Git\jongsulp\WolframAlpha.NET\obj\Release\WolframAlpha.NET.csprojResolveAssemblyReference.cache
+C:\Git\jongsulp\WolframAlpha.NET\obj\Release\WolframAlpha.NET.dll
+C:\Git\jongsulp\WolframAlpha.NET\obj\Release\WolframAlpha.NET.pdb

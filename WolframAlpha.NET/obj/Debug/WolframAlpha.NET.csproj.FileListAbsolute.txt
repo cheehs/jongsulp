@@ -1,0 +1,8 @@
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\bin\Debug\WolframAlpha.NET.XML
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\bin\Debug\WolframAlpha.NET.dll
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\bin\Debug\WolframAlpha.NET.pdb
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\bin\Debug\RestSharp.dll
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\bin\Debug\RestSharp.xml
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.csprojResolveAssemblyReference.cache
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.dll
+C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.pdb

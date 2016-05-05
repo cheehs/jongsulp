@@ -125,6 +125,12 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WolframAlpha.NET\WolframAlpha.NET.csproj">
+      <Project>{a6c3a23b-c045-4589-a83a-62e5e153e18e}</Project>
+      <Name>WolframAlpha.NET</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

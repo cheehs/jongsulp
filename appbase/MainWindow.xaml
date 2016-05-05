@@ -14,6 +14,9 @@
         <TextBlock x:Name="text_debug" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Debug message" Margin="10,0,0,10.4" Width="500" Height="16" VerticalAlignment="Bottom"/>
         <Button x:Name="prev" Content="Prev" Margin="0,0,193.6,56.4" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="40" Click="Button_Prev_Click"/>
         <Button x:Name="next" Content="Next" Margin="0,0,143.6,56.4" Height="19" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="40" Click="Button_Next_Click"/>
+        <Button x:Name="button_graph" Content="graph" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Margin="0,250,9.5,0" Click="button_graph_Click"/>
+        <TextBox x:Name="textBox1" HorizontalAlignment="Right" Height="20" TextWrapping="Wrap" Text="y=log(x)" VerticalAlignment="Top" Width="100" Margin="0,200,9.5,0"/>
+        <Image x:Name="image_Graph" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,143,80"/>
 
     </Grid>
 </Window>
