@@ -6,3 +6,11 @@ C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\bin\Debug\RestSh
 C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.csprojResolveAssemblyReference.cache
 C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.dll
 C:\Users\PADDY\Desktop\WolframAlpha.NET-master\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.pdb
+C:\Git\jongsulp\WolframAlpha.NET\bin\Debug\WolframAlpha.NET.XML
+C:\Git\jongsulp\WolframAlpha.NET\bin\Debug\WolframAlpha.NET.dll
+C:\Git\jongsulp\WolframAlpha.NET\bin\Debug\WolframAlpha.NET.pdb
+C:\Git\jongsulp\WolframAlpha.NET\bin\Debug\RestSharp.dll
+C:\Git\jongsulp\WolframAlpha.NET\bin\Debug\RestSharp.xml
+C:\Git\jongsulp\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.csprojResolveAssemblyReference.cache
+C:\Git\jongsulp\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.dll
+C:\Git\jongsulp\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.pdb

@@ -27,9 +27,9 @@
             A link to calculate the pods that did not make it within the scan timeout.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:WolframAlphaNET.Objects.QueryResult.Scripts" -->
-        <!-- Badly formed XML comment ignored for member "P:WolframAlphaNET.Objects.QueryResult.CSS" -->
-        <!-- Badly formed XML comment ignored for member "P:WolframAlphaNET.Objects.QueryResult.MathML" -->
+        <!-- "P:WolframAlphaNET.Objects.QueryResult.Scripts" 멤버에 대해 잘못된 형식의 XML 주석은 무시됩니다. -->
+        <!-- "P:WolframAlphaNET.Objects.QueryResult.CSS" 멤버에 대해 잘못된 형식의 XML 주석은 무시됩니다. -->
+        <!-- "P:WolframAlphaNET.Objects.QueryResult.MathML" 멤버에 대해 잘못된 형식의 XML 주석은 무시됩니다. -->
         <member name="M:WolframAlphaNET.WolframAlpha.#ctor(System.String)">
             <summary>
             Creates a new instance of the Wolfram Alpha API

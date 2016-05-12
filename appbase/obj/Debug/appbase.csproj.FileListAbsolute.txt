@@ -1,2 +1,0 @@
-C:\Git\jongsulp\appbase\bin\Debug\appbase.exe.config
-C:\Git\jongsulp\appbase\obj\Debug\appbase.csproj.ResolveComReference.cache
