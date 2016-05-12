@@ -11,7 +11,7 @@ using WolframAlphaNET.Objects;
 
 namespace Jonsulp
 {
-    public partial class PPT : Form
+    public partial class MainForm : Form
     {
         // ppt temp path
         string ppt_temp_path = System.Windows.Forms.Application.StartupPath + "\\ppt_temp";
@@ -21,8 +21,9 @@ namespace Jonsulp
 
         // variables
         int slide = 0;
+        int slide_max = 0;
 
-        public PPT()
+        public MainForm()
         {
             InitializeComponent();
             text_input.Text = input;
@@ -63,7 +64,7 @@ namespace Jonsulp
         {
             string picturesPath = ppt_temp_path;
             MakeDir(picturesPath);
-
+            slide_max = ppt.Slides.Count;
             for (int i = 0; i < ppt.Slides.Count; ++i)
             {
                 ppt.Slides[i + 1].Export
@@ -118,7 +119,8 @@ namespace Jonsulp
 
         private void button_graph_Click(object sender, EventArgs e)
         {
-            picture_Graph(plot_Graph(text_input.Text));
+            WolframAlpha wolf = new WolframAlpha("K8WRVX-A3Y7YUUQAV");
+            picture_Graph(wolf.get_Graph_address(text_input.Text));
             text_input.Text = "";
         }
 
@@ -133,36 +135,11 @@ namespace Jonsulp
 
         private void button_next_Click(object sender, EventArgs e)
         {
-            if (slide >= ppt.Slides.Count)
+            if (slide > slide_max)
                 return;
 
             slide++;
             DisplayPPTimage(slide);
-        }
-
-        private string plot_Graph(string equations)
-        {
-            WolframAlpha wolfram = new WolframAlpha("K8WRVX-A3Y7YUUQAV");
-
-            QueryResult results = wolfram.Query(equations);
-
-            if (results != null)
-            {
-                foreach (Pod pod in results.Pods)
-                {
-                    if (pod.SubPods != null)
-                    {
-                        foreach (SubPod subPod in pod.SubPods)
-                        {
-                            if (pod.Title.Contains("Plot") || pod.Title.Contains("plot"))
-                            {
-                                return subPod.Image.Src;
-                            }
-                        }
-                    }
-                }
-            }
-            return null;
         }
 
         private void picture_Graph(string src)
@@ -188,6 +165,35 @@ namespace Jonsulp
         private void button_clear_Click(object sender, EventArgs e)
         {
             image_graph.Visible = false;
+        }
+
+        //종료 메뉴 클릭시
+        private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Dispose();
+        }
+
+        //image 버튼과 같음
+        private void 이미지열기ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (LoadFile(ofd) != 0)
+                return;
+
+            LoadImage(ofd.FileName);
+        }
+
+        //ppt 버튼과 같음
+        private void pPT열기ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (LoadFile(ofd) != 0)
+                return;
+
+            ppt = LoadPPT(ofd.FileName);
+            MakePPTimage(ppt);
+
+            DisplayPPTimage(slide);
         }
     }
 }

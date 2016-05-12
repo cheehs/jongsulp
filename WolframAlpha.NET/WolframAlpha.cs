@@ -390,5 +390,28 @@ namespace WolframAlphaNET
             T results = deserializer.Deserialize<T>(response);
             return results;
         }
+
+        public string get_Graph_address(string equations)
+        {
+            QueryResult results = Query(equations);
+
+            if (results != null)
+            {
+                foreach (Pod pod in results.Pods)
+                {
+                    if (pod.SubPods != null)
+                    {
+                        foreach (SubPod subPod in pod.SubPods)
+                        {
+                            if (pod.Title.Contains("Plot") || pod.Title.Contains("plot"))
+                            {
+                                return subPod.Image.Src;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
     }
 }

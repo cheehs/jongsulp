@@ -16,7 +16,7 @@ namespace Jonsulp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new PPT());
+            Application.Run(new MainForm());
         }
     }
 }

@@ -199,7 +199,7 @@ namespace InkRecognition
                 txtResults.SelectedText = myInkCollector.Ink.Strokes.ToString();
                 a = myInkCollector.Ink.Strokes.ToString();
 
-                Jonsulp.PPT temp = (Jonsulp.PPT)this.Owner;
+                Jonsulp.MainForm temp = (Jonsulp.MainForm)this.Owner;
                 temp.text_input.Text = a;
 
                 //이 a스트링 활용하면댐
