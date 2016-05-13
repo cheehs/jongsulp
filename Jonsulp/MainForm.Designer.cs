@@ -55,6 +55,8 @@
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pictureBox_image = new System.Windows.Forms.PictureBox();
+            this.최대화ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.최대화ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_graph)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -74,9 +76,6 @@
             // 
             // image
             // 
-            this.image.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.image.BackColor = System.Drawing.Color.White;
             this.image.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.image.Location = new System.Drawing.Point(12, 38);
@@ -199,6 +198,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.최대화ToolStripMenuItem,
             this.입력ToolStripMenuItem,
             this.기타ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -264,7 +264,7 @@
             // 도움말ToolStripMenuItem
             // 
             this.도움말ToolStripMenuItem.Name = "도움말ToolStripMenuItem";
-            this.도움말ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.도움말ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.도움말ToolStripMenuItem.Text = "도움말";
             // 
             // contextMenuStrip1
@@ -309,6 +309,21 @@
             this.pictureBox_image.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_image_MouseDown);
             this.pictureBox_image.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_image_MouseMove);
             this.pictureBox_image.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_image_MouseUp);
+            // 
+            // 최대화ToolStripMenuItem
+            // 
+            this.최대화ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.최대화ToolStripMenuItem1});
+            this.최대화ToolStripMenuItem.Name = "최대화ToolStripMenuItem";
+            this.최대화ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.최대화ToolStripMenuItem.Text = "보기";
+            // 
+            // 최대화ToolStripMenuItem1
+            // 
+            this.최대화ToolStripMenuItem1.Name = "최대화ToolStripMenuItem1";
+            this.최대화ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.최대화ToolStripMenuItem1.Text = "최대화";
+            this.최대화ToolStripMenuItem1.Click += new System.EventHandler(this.최대화ToolStripMenuItem1_Click);
             // 
             // MainForm
             // 
@@ -371,6 +386,8 @@
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox_image;
+        private System.Windows.Forms.ToolStripMenuItem 최대화ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 최대화ToolStripMenuItem1;
     }
 }
 

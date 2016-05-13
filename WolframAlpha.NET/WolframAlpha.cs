@@ -394,7 +394,13 @@ namespace WolframAlphaNET
         public string get_Graph_address(string equations)
         {
             QueryResult results = Query(equations);
-
+            if (results.DidYouMean.HasElements())
+            {
+                foreach (DidYouMean didYouMean in results.DidYouMean)
+                {
+                    Console.WriteLine("Did you mean: " + didYouMean.Value);
+                }
+            }
             if (results != null)
             {
                 foreach (Pod pod in results.Pods)
@@ -411,6 +417,7 @@ namespace WolframAlphaNET
                     }
                 }
             }
+
             return null;
         }
     }
