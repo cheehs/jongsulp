@@ -54,11 +54,12 @@
             this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.searchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel_image = new System.Windows.Forms.Panel();
+            this.pictureBox_image = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.image_graph)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_image)).BeginInit();
             this.SuspendLayout();
             // 
             // text_debug
@@ -248,7 +249,7 @@
             // 필기인식ToolStripMenuItem
             // 
             this.필기인식ToolStripMenuItem.Name = "필기인식ToolStripMenuItem";
-            this.필기인식ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.필기인식ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.필기인식ToolStripMenuItem.Text = "필기 인식";
             this.필기인식ToolStripMenuItem.Click += new System.EventHandler(this.필기인식ToolStripMenuItem_Click);
             // 
@@ -296,23 +297,25 @@
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.clearToolStripMenuItem_Click);
             // 
-            // panel_image
+            // pictureBox_image
             // 
-            this.panel_image.Location = new System.Drawing.Point(237, 133);
-            this.panel_image.Name = "panel_image";
-            this.panel_image.Size = new System.Drawing.Size(202, 120);
-            this.panel_image.TabIndex = 14;
-            this.panel_image.Visible = false;
-            this.panel_image.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel_image_MouseDown);
-            this.panel_image.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel_image_MouseMove);
-            this.panel_image.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel_image_MouseUp);
+            this.pictureBox_image.Location = new System.Drawing.Point(207, 162);
+            this.pictureBox_image.Name = "pictureBox_image";
+            this.pictureBox_image.Size = new System.Drawing.Size(194, 147);
+            this.pictureBox_image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox_image.TabIndex = 0;
+            this.pictureBox_image.TabStop = false;
+            this.pictureBox_image.Visible = false;
+            this.pictureBox_image.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_image_MouseDown);
+            this.pictureBox_image.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_image_MouseMove);
+            this.pictureBox_image.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_image_MouseUp);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.panel_image);
+            this.Controls.Add(this.pictureBox_image);
             this.Controls.Add(this.button_clear);
             this.Controls.Add(this.button_search);
             this.Controls.Add(this.button_ink);
@@ -334,6 +337,7 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_image)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -366,7 +370,7 @@
         private System.Windows.Forms.ToolStripMenuItem graphToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem searchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
-        private System.Windows.Forms.Panel panel_image;
+        private System.Windows.Forms.PictureBox pictureBox_image;
     }
 }
 

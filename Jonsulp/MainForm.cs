@@ -22,8 +22,7 @@ namespace Jonsulp
         //Imaging
         private Boolean drag = false;
         private System.Drawing.Point point;
-        private Image _image;
-        private Bitmap gBitmap;
+
 
         // variables
         int slide = 0;
@@ -33,6 +32,23 @@ namespace Jonsulp
         {
             InitializeComponent();
             text_input.Text = input;
+            pictureBox_image.MouseWheel += new MouseEventHandler(mouse_wheel);
+        }
+
+        private void mouse_wheel(object sender, MouseEventArgs e)
+        {
+            if ((e.Delta / 120) > 0)
+            {
+                pictureBox_image.Width+=5;
+                pictureBox_image.Height+=5;  
+                //wheel up
+            }
+            else
+            {
+                pictureBox_image.Width-=5;
+                pictureBox_image.Height-=5;
+                //wheel down
+            }
         }
 
         private int LoadFile(OpenFileDialog ofd)
@@ -108,11 +124,8 @@ namespace Jonsulp
             if (LoadFile(ofd) != 0)
                 return;
 
-            _image = Image.FromFile(ofd.FileName);
-            panel_image.Visible = true;
-            Graphics g = panel_image.CreateGraphics();
-            g.DrawImage(_image, 0, 0, panel_image.Width, panel_image.Height);
-            gBitmap = new Bitmap(_image);
+            pictureBox_image.Visible = true;
+            pictureBox_image.ImageLocation = ofd.FileName;
             
         }
 
@@ -176,7 +189,7 @@ namespace Jonsulp
         private void button_clear_Click(object sender, EventArgs e)
         {
             image_graph.Visible = false;
-            panel_image.Visible = false;
+            pictureBox_image.Visible = false;
         }
 
         //종료 메뉴 클릭시
@@ -227,32 +240,32 @@ namespace Jonsulp
             image_graph.Visible = false;
         }
 
-        private void panel_image_MouseUp(object sender, MouseEventArgs e)
-        {
-            drag = false;
-        }
-
-        private void panel_image_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (drag)
-            {
-                Panel selPanel = (Panel)sender;
-                selPanel.Left = e.X + selPanel.Left - point.X;
-                selPanel.Top = e.Y + selPanel.Top - point.Y;
-            }
-        }
-
-        private void panel_image_MouseDown(object sender, MouseEventArgs e)
-        {
-            drag = true;
-            point = new System.Drawing.Point(e.X, e.Y);
-        }
-
         private void 필기인식ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InkRecognition.InkRecognition ink = new InkRecognition.InkRecognition();
             ink.Owner = this;
             ink.Show();
+        }
+
+        private void pictureBox_image_MouseUp(object sender, MouseEventArgs e)
+        {
+            drag = false;
+        }
+
+        private void pictureBox_image_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (drag)
+            {
+                PictureBox temp = (PictureBox)sender;
+                temp.Left = e.X + temp.Left - point.X;
+                temp.Top = e.Y + temp.Top - point.Y;
+            }
+        }
+
+        private void pictureBox_image_MouseDown(object sender, MouseEventArgs e)
+        {
+            drag = true;
+            point = new System.Drawing.Point(e.X, e.Y);
         }
     }
 }
