@@ -176,43 +176,7 @@ namespace Jonsulp
             text_debug.Text = text;
         }
 
-        #region Button Event
-
-        #region Button Image Click
-        private void button_image_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (LoadFile(ofd) != 0)
-                return;
-
-            pictureBox_image.Visible = true;
-            pictureBox_image.ImageLocation = ofd.FileName;
-        }
-        #endregion
-
-        #region Button PPT Click
-        private void button_ppt_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (LoadFile(ofd) != 0)
-                return;
-
-            ppt = LoadPPT(ofd.FileName);
-            MakePPTimage(ppt);
-
-            DisplayPPTimage(slide);
-        }
-        #endregion
-
-        #region Button Graph Click
-        private void button_graph_Click(object sender, EventArgs e)
-        {
-            WolframAlpha wolf = new WolframAlpha("K8WRVX-A3Y7YUUQAV");
-            
-            display_Graph(wolf.get_Graph_address(text_input.Text));
-            text_input.Text = "";
-        }
-        #endregion
+        #region Button 이벤트
 
         #region Button Prev Click
         private void button_prev_Click(object sender, EventArgs e)
@@ -235,9 +199,47 @@ namespace Jonsulp
             DisplayPPTimage(slide);
         }
         #endregion
+        #endregion
 
-        #region Button Ink Clock
-        private void button_ink_Click(object sender, EventArgs e)
+        #region ToolStrip 이벤트
+        #region Button Image Click
+        private void toolStripButton6_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (LoadFile(ofd) != 0)
+                return;
+
+            pictureBox_image.Visible = true;
+            pictureBox_image.ImageLocation = ofd.FileName;
+        }
+        #endregion
+
+        #region Button PPT Click
+        private void toolStripButton5_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (LoadFile(ofd) != 0)
+                return;
+
+            ppt = LoadPPT(ofd.FileName);
+            MakePPTimage(ppt);
+
+            DisplayPPTimage(slide);
+        }
+        #endregion
+
+        #region Button Graph Click
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            WolframAlpha wolf = new WolframAlpha("K8WRVX-A3Y7YUUQAV");
+
+            display_Graph(wolf.get_Graph_address(text_input.Text));
+            text_input.Text = "";
+        }
+        #endregion
+
+        #region Button Ink Click
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
             InkRecognition.InkRecognition ink = new InkRecognition.InkRecognition();
             ink.Owner = this;
@@ -246,7 +248,7 @@ namespace Jonsulp
         #endregion
 
         #region Button Search Click
-        private void button_search_Click(object sender, EventArgs e)
+        private void toolStripButton3_Click(object sender, EventArgs e)
         {
             search web = new search();
             web.recv(text_input.Text);
@@ -255,7 +257,7 @@ namespace Jonsulp
         #endregion
 
         #region Button Clear Click
-        private void button_clear_Click(object sender, EventArgs e)
+        private void toolStripButton4_Click(object sender, EventArgs e)
         {
             image_graph.Visible = false;
             pictureBox_image.Visible = false;
@@ -264,7 +266,7 @@ namespace Jonsulp
 
         #endregion
 
-        #region 툴팁
+        #region 메뉴 툴팁 이벤트
         #region 툴팁 종료
         private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -298,7 +300,7 @@ namespace Jonsulp
         #endregion
 
         #region 툴팁 그래프
-        private void graphToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 그래프ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WolframAlpha wolf = new WolframAlpha("K8WRVX-A3Y7YUUQAV");
             display_Graph(wolf.get_Graph_address(text_input.Text));
@@ -316,7 +318,7 @@ namespace Jonsulp
         #endregion
 
         #region 툴팁 클리어
-        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 초기화ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             image_graph.Visible = false;
         }
@@ -328,6 +330,15 @@ namespace Jonsulp
             InkRecognition.InkRecognition ink = new InkRecognition.InkRecognition();
             ink.Owner = this;
             ink.Show();
+        }
+        #endregion
+
+        #region 툴팁 웹검색
+        private void 웹검색ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            search web = new search();
+            web.recv(text_input.Text);
+            web.Show();
         }
         #endregion
 
@@ -348,7 +359,7 @@ namespace Jonsulp
             // 현재 Full-Screen 모드가 아닐 경우 처리  
             else
             {
-                menuStrip1.Visible = false;
+                //menuStrip1.Visible = false;
                 image.Dock = DockStyle.Fill;
                 // Form 상태 변경  
                 FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -379,6 +390,10 @@ namespace Jonsulp
             drag = true;
             point = new System.Drawing.Point(e.X, e.Y);
         }
-        #endregion    
+
+
+
+        #endregion
+
     }
 }
