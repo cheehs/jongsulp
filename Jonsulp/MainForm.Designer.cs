@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.text_debug = new System.Windows.Forms.Label();
-            this.image = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.pPTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +54,6 @@
             this.초기화ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.기타ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.도움말ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pictureBox_image = new System.Windows.Forms.PictureBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton6 = new System.Windows.Forms.ToolStripButton();
@@ -67,11 +65,13 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.text_input = new System.Windows.Forms.ToolStripTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
+            this.pictureBox_image = new System.Windows.Forms.PictureBox();
+            this.image = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_image)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_image)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image)).BeginInit();
             this.SuspendLayout();
             // 
             // text_debug
@@ -83,23 +83,6 @@
             this.text_debug.Size = new System.Drawing.Size(98, 12);
             this.text_debug.TabIndex = 0;
             this.text_debug.Text = "Debug message";
-            // 
-            // image
-            // 
-            this.image.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.image.BackColor = System.Drawing.Color.White;
-            this.image.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.image.ContextMenuStrip = this.contextMenuStrip1;
-            this.image.Location = new System.Drawing.Point(0, 52);
-            this.image.Name = "image";
-            this.image.Size = new System.Drawing.Size(784, 509);
-            this.image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.image.TabIndex = 1;
-            this.image.TabStop = false;
-            this.image.MouseDown += new System.Windows.Forms.MouseEventHandler(this.image_MouseDown);
-            this.image.MouseUp += new System.Windows.Forms.MouseEventHandler(this.image_MouseUp);
             // 
             // contextMenuStrip1
             // 
@@ -153,6 +136,7 @@
             this.imageToolStripMenuItem.Name = "imageToolStripMenuItem";
             this.imageToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.imageToolStripMenuItem.Text = "Image";
+            this.imageToolStripMenuItem.Click += new System.EventHandler(this.이미지열기ToolStripMenuItem_Click);
             // 
             // button_prev
             // 
@@ -251,7 +235,7 @@
             // 
             this.필기인식ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("필기인식ToolStripMenuItem.Image")));
             this.필기인식ToolStripMenuItem.Name = "필기인식ToolStripMenuItem";
-            this.필기인식ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.필기인식ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.필기인식ToolStripMenuItem.Text = "필기 인식";
             this.필기인식ToolStripMenuItem.Click += new System.EventHandler(this.필기인식ToolStripMenuItem_Click);
             // 
@@ -259,7 +243,7 @@
             // 
             this.그래프ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("그래프ToolStripMenuItem.Image")));
             this.그래프ToolStripMenuItem.Name = "그래프ToolStripMenuItem";
-            this.그래프ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.그래프ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.그래프ToolStripMenuItem.Text = "그래프";
             this.그래프ToolStripMenuItem.Click += new System.EventHandler(this.그래프ToolStripMenuItem_Click);
             // 
@@ -267,7 +251,7 @@
             // 
             this.웹검색ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("웹검색ToolStripMenuItem.Image")));
             this.웹검색ToolStripMenuItem.Name = "웹검색ToolStripMenuItem";
-            this.웹검색ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.웹검색ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.웹검색ToolStripMenuItem.Text = "웹 검색";
             this.웹검색ToolStripMenuItem.Click += new System.EventHandler(this.웹검색ToolStripMenuItem_Click);
             // 
@@ -275,7 +259,7 @@
             // 
             this.초기화ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("초기화ToolStripMenuItem.Image")));
             this.초기화ToolStripMenuItem.Name = "초기화ToolStripMenuItem";
-            this.초기화ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.초기화ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.초기화ToolStripMenuItem.Text = "초기화";
             this.초기화ToolStripMenuItem.Click += new System.EventHandler(this.초기화ToolStripMenuItem_Click);
             // 
@@ -292,19 +276,6 @@
             this.도움말ToolStripMenuItem.Name = "도움말ToolStripMenuItem";
             this.도움말ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.도움말ToolStripMenuItem.Text = "도움말";
-            // 
-            // pictureBox_image
-            // 
-            this.pictureBox_image.Location = new System.Drawing.Point(186, 120);
-            this.pictureBox_image.Name = "pictureBox_image";
-            this.pictureBox_image.Size = new System.Drawing.Size(439, 342);
-            this.pictureBox_image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox_image.TabIndex = 0;
-            this.pictureBox_image.TabStop = false;
-            this.pictureBox_image.Visible = false;
-            this.pictureBox_image.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_image_MouseDown);
-            this.pictureBox_image.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_image_MouseMove);
-            this.pictureBox_image.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_image_MouseUp);
             // 
             // toolStrip1
             // 
@@ -402,6 +373,33 @@
             this.text_input.Name = "text_input";
             this.text_input.Size = new System.Drawing.Size(100, 25);
             // 
+            // pictureBox_image
+            // 
+            this.pictureBox_image.Location = new System.Drawing.Point(168, 97);
+            this.pictureBox_image.Name = "pictureBox_image";
+            this.pictureBox_image.Size = new System.Drawing.Size(439, 342);
+            this.pictureBox_image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox_image.TabIndex = 0;
+            this.pictureBox_image.TabStop = false;
+            this.pictureBox_image.Visible = false;
+            // 
+            // image
+            // 
+            this.image.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.image.BackColor = System.Drawing.Color.White;
+            this.image.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.image.ContextMenuStrip = this.contextMenuStrip1;
+            this.image.Location = new System.Drawing.Point(0, 52);
+            this.image.Name = "image";
+            this.image.Size = new System.Drawing.Size(784, 509);
+            this.image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.image.TabIndex = 1;
+            this.image.TabStop = false;
+            this.image.MouseDown += new System.Windows.Forms.MouseEventHandler(this.image_MouseDown);
+            this.image.MouseUp += new System.Windows.Forms.MouseEventHandler(this.image_MouseUp);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -417,13 +415,13 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Leaper";
-            ((System.ComponentModel.ISupportInitialize)(this.image)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_image)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_image)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.image)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

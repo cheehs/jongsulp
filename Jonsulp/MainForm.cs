@@ -29,6 +29,7 @@ namespace Jonsulp
         int slide_max = 0;
         string input = "y=(x+1)(x-1)(x-3)";
         int xpos;
+        Bitmap gBitmap;
 
         #region MainForm
         /// <summary>
@@ -40,6 +41,8 @@ namespace Jonsulp
             text_input.Text = input;
             pictureBox_image.MouseWheel += new MouseEventHandler(mouse_wheel);
 
+            QuickSlot qs = new QuickSlot(image);
+            Image_control ic = new Image_control(pictureBox_image, this);
             //OpenFileDialog ofd = new OpenFileDialog();
             //if (LoadFile(ofd) != 0)
             //    return;
@@ -66,7 +69,7 @@ namespace Jonsulp
         /// <returns></returns>
         private int LoadFile(OpenFileDialog ofd)
         {
-            ofd.Filter = "All Files (*.*)|*.*";
+            ofd.Filter = "Powerpoint 프레젠테이션 (*.ppt;*.pptx)|*.ppt;*.pptx";
             ofd.Title = "Select a File.";
             if (ofd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                 return 1;
@@ -80,9 +83,10 @@ namespace Jonsulp
         /// 이미지의 주소를 이미지 picturebox에 올리는 함수
         /// </summary>
         /// <param name="path">이미지의 주소</param>
-        private void LoadImage(string path)
+        private void LoadImage(string path, Control control)
         {
-            pictureBox_image.ImageLocation = path;
+            control.Visible = true;
+            ((PictureBox)control).ImageLocation = path;
         }
         #endregion
 
@@ -138,7 +142,7 @@ namespace Jonsulp
         /// <param name="slide">슬라이드 번호</param>
         private void DisplayPPTimage(int slide)
         {
-            LoadImage(ppt_temp_path + "\\temp" + slide + ".jpg");
+            LoadImage(ppt_temp_path + "\\temp" + slide + ".jpg", image);
         }
         #endregion
 
@@ -214,11 +218,27 @@ namespace Jonsulp
         #region 툴팁 이미지열기
         private void 이미지열기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            if (LoadFile(ofd) != 0)
-                return;
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
-            LoadImage(ofd.FileName);
+            openFileDialog1.Title = "이미지";
+            openFileDialog1.Filter = "Image Files(*.jpg;*.jpeg;*.gif;*.bmp;*.png)|*.jpg;*.jpeg;*.gif;*.bmp;*.png";
+            string openstrFilename;
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                openstrFilename = openFileDialog1.FileName;
+                Image image1 = Image.FromFile(openstrFilename);
+
+                pictureBox_image.Image = image1;
+                gBitmap = new Bitmap(image1);
+                pictureBox_image.Visible = true;
+            }
+
+            //OpenFileDialog ofd = new OpenFileDialog();
+            //if (LoadFile(ofd) != 0)
+            //    return;
+
+            //LoadImage(ofd.FileName, pictureBox_image);
         }
         #endregion
 
@@ -307,26 +327,6 @@ namespace Jonsulp
         #endregion
 
         #region Image 마우스 이벤트
-        private void pictureBox_image_MouseUp(object sender, MouseEventArgs e)
-        {
-            drag = false;
-        }
-
-        private void pictureBox_image_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (drag)
-            {
-                PictureBox temp = (PictureBox)sender;
-                temp.Left = e.X + temp.Left - point.X;
-                temp.Top = e.Y + temp.Top - point.Y;
-            }
-        }
-
-        private void pictureBox_image_MouseDown(object sender, MouseEventArgs e)
-        {
-            drag = true;
-            point = new System.Drawing.Point(e.X, e.Y);
-        }
 
         #region Image Mouse Wheel
         /// <summary>
@@ -366,8 +366,7 @@ namespace Jonsulp
             if (e.Location.X - xpos > 100) ppt_next();
             else if (e.Location.X - xpos < -100) ppt_prev();
         }
+
         #endregion
-
-
     }
 }
