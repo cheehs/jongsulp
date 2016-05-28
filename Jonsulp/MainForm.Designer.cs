@@ -235,7 +235,7 @@
             // 
             this.필기인식ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("필기인식ToolStripMenuItem.Image")));
             this.필기인식ToolStripMenuItem.Name = "필기인식ToolStripMenuItem";
-            this.필기인식ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.필기인식ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.필기인식ToolStripMenuItem.Text = "필기 인식";
             this.필기인식ToolStripMenuItem.Click += new System.EventHandler(this.필기인식ToolStripMenuItem_Click);
             // 
@@ -243,7 +243,7 @@
             // 
             this.그래프ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("그래프ToolStripMenuItem.Image")));
             this.그래프ToolStripMenuItem.Name = "그래프ToolStripMenuItem";
-            this.그래프ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.그래프ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.그래프ToolStripMenuItem.Text = "그래프";
             this.그래프ToolStripMenuItem.Click += new System.EventHandler(this.그래프ToolStripMenuItem_Click);
             // 
@@ -251,7 +251,7 @@
             // 
             this.웹검색ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("웹검색ToolStripMenuItem.Image")));
             this.웹검색ToolStripMenuItem.Name = "웹검색ToolStripMenuItem";
-            this.웹검색ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.웹검색ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.웹검색ToolStripMenuItem.Text = "웹 검색";
             this.웹검색ToolStripMenuItem.Click += new System.EventHandler(this.웹검색ToolStripMenuItem_Click);
             // 
@@ -259,7 +259,7 @@
             // 
             this.초기화ToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("초기화ToolStripMenuItem.Image")));
             this.초기화ToolStripMenuItem.Name = "초기화ToolStripMenuItem";
-            this.초기화ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.초기화ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.초기화ToolStripMenuItem.Text = "초기화";
             this.초기화ToolStripMenuItem.Click += new System.EventHandler(this.초기화ToolStripMenuItem_Click);
             // 
@@ -274,7 +274,7 @@
             // 도움말ToolStripMenuItem
             // 
             this.도움말ToolStripMenuItem.Name = "도움말ToolStripMenuItem";
-            this.도움말ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.도움말ToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.도움말ToolStripMenuItem.Text = "도움말";
             // 
             // toolStrip1
@@ -412,9 +412,11 @@
             this.Controls.Add(this.image);
             this.Controls.Add(this.text_debug);
             this.Controls.Add(this.menuStrip1);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "Leaper";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.contextMenuStrip1.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

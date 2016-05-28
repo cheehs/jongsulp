@@ -53,21 +53,24 @@ namespace InkRecognition
         private System.Windows.Forms.GroupBox gbInkArea;
         private System.Windows.Forms.Button btnRecognize;
         private System.Windows.Forms.TextBox txtResults;
-		private System.ComponentModel.Container components = null;
+        private Button button_OK;
+        private Button button_retry;
+        private System.ComponentModel.Container components = null;
         #endregion
 
         /// <summary>
         /// Initialize the form and ink collector
         /// </summary>
-		public InkRecognition()
+		public InkRecognition(Point location)
 		{
             #region Standard Template Code
 			//
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
-            #endregion
-           
+            #endregion          
+            Left = location.X;
+            Top = location.Y;
         }
 
         #region Standard Template Code
@@ -98,11 +101,13 @@ namespace InkRecognition
             this.gbInkArea = new System.Windows.Forms.GroupBox();
             this.btnRecognize = new System.Windows.Forms.Button();
             this.txtResults = new System.Windows.Forms.TextBox();
+            this.button_OK = new System.Windows.Forms.Button();
+            this.button_retry = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // gbInkArea
             // 
-            this.gbInkArea.Location = new System.Drawing.Point(10, 0);
+            this.gbInkArea.Location = new System.Drawing.Point(10, 12);
             this.gbInkArea.Name = "gbInkArea";
             this.gbInkArea.Size = new System.Drawing.Size(336, 146);
             this.gbInkArea.TabIndex = 0;
@@ -111,10 +116,10 @@ namespace InkRecognition
             this.gbInkArea.Enter += new System.EventHandler(this.gbInkArea_Enter);
             // 
             // btnRecognize
-            //
-            this.btnRecognize.Location = new System.Drawing.Point(10, 155);
+            // 
+            this.btnRecognize.Location = new System.Drawing.Point(10, 164);
             this.btnRecognize.Name = "btnRecognize";
-            this.btnRecognize.Size = new System.Drawing.Size(336, 25);
+            this.btnRecognize.Size = new System.Drawing.Size(174, 25);
             this.btnRecognize.TabIndex = 1;
             this.btnRecognize.Text = "Recognize Ink";
             this.btnRecognize.Click += new System.EventHandler(this.btnRecognize_Click);
@@ -122,27 +127,54 @@ namespace InkRecognition
             // txtResults
             // 
             this.txtResults.BackColor = System.Drawing.SystemColors.Window;
+            this.txtResults.Cursor = System.Windows.Forms.Cursors.Hand;
             this.txtResults.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.txtResults.Location = new System.Drawing.Point(10, 190);
+            this.txtResults.Location = new System.Drawing.Point(10, 195);
             this.txtResults.Name = "txtResults";
             this.txtResults.ReadOnly = true;
-            this.txtResults.Size = new System.Drawing.Size(336, 21);
+            this.txtResults.Size = new System.Drawing.Size(174, 21);
             this.txtResults.TabIndex = 2;
+            // 
+            // button_OK
+            // 
+            this.button_OK.Location = new System.Drawing.Point(190, 164);
+            this.button_OK.Name = "button_OK";
+            this.button_OK.Size = new System.Drawing.Size(75, 53);
+            this.button_OK.TabIndex = 3;
+            this.button_OK.Text = "Go";
+            this.button_OK.UseVisualStyleBackColor = true;
+            this.button_OK.Click += new System.EventHandler(this.button_OK_Click);
+            // 
+            // button_retry
+            // 
+            this.button_retry.Location = new System.Drawing.Point(271, 164);
+            this.button_retry.Name = "button_retry";
+            this.button_retry.Size = new System.Drawing.Size(75, 52);
+            this.button_retry.TabIndex = 4;
+            this.button_retry.Text = "Retry";
+            this.button_retry.UseVisualStyleBackColor = true;
+            this.button_retry.Click += new System.EventHandler(this.button_retry_Click);
             // 
             // InkRecognition
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(6, 14);
-            this.ClientSize = new System.Drawing.Size(357, 239);
+            this.ClientSize = new System.Drawing.Size(357, 229);
+            this.ControlBox = false;
+            this.Controls.Add(this.button_retry);
+            this.Controls.Add(this.button_OK);
             this.Controls.Add(this.txtResults);
             this.Controls.Add(this.btnRecognize);
             this.Controls.Add(this.gbInkArea);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "InkRecognition";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "크아아악";
             this.Load += new System.EventHandler(this.InkRecognition_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 		#endregion
 
@@ -199,8 +231,7 @@ namespace InkRecognition
                 txtResults.SelectedText = myInkCollector.Ink.Strokes.ToString();
                 a = myInkCollector.Ink.Strokes.ToString();
 
-                Jonsulp.MainForm temp = (Jonsulp.MainForm)this.Owner;
-                temp.text_input.Text = a;
+                
 
                 //이 a스트링 활용하면댐
                 // If the mouse is pressed, do not perform the deletion - 
@@ -218,7 +249,20 @@ namespace InkRecognition
 
         private void gbInkArea_Enter(object sender, EventArgs e)
         {
+            
+        }
 
+        private void button_OK_Click(object sender, EventArgs e)
+        {
+            Jonsulp.MainForm temp = (Jonsulp.MainForm)this.Owner;
+            temp.text_input.Text = a;
+            
+            Dispose();
+        }
+
+        private void button_retry_Click(object sender, EventArgs e)
+        {
+            txtResults.Text = "";
         }
     }
 }

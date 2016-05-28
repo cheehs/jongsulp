@@ -30,6 +30,7 @@ namespace Jonsulp
         string input = "y=(x+1)(x-1)(x-3)";
         int xpos;
         Bitmap gBitmap;
+        char KK='n';
 
         #region MainForm
         /// <summary>
@@ -43,14 +44,6 @@ namespace Jonsulp
 
             QuickSlot qs = new QuickSlot(image);
             Image_control ic = new Image_control(pictureBox_image, this);
-            //OpenFileDialog ofd = new OpenFileDialog();
-            //if (LoadFile(ofd) != 0)
-            //    return;
-
-            //ppt = LoadPPT(ofd.FileName);
-            //MakePPTimage(ppt);
-
-            //DisplayPPTimage(slide);
         }
         #endregion        
 
@@ -257,7 +250,7 @@ namespace Jonsulp
         #endregion
 
         #region 툴팁 그래프
-        private void 그래프ToolStripMenuItem_Click(object sender, EventArgs e)
+        public void 그래프ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WolframAlpha wolf = new WolframAlpha("K8WRVX-A3Y7YUUQAV");
             display_Graph(wolf.get_Graph_address(text_input.Text));
@@ -266,7 +259,7 @@ namespace Jonsulp
         #endregion
 
         #region 툴팁 서치
-        private void searchToolStripMenuItem_Click(object sender, EventArgs e)
+        public void searchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             search web = new search();
             web.recv(text_input.Text);
@@ -284,7 +277,7 @@ namespace Jonsulp
         #region 툴팁 필기인식
         private void 필기인식ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InkRecognition.InkRecognition ink = new InkRecognition.InkRecognition();
+            InkRecognition.InkRecognition ink = new InkRecognition.InkRecognition(new System.Drawing.Point(MousePosition.X, MousePosition.Y));
             ink.Owner = this;
             ink.Show();
         }
@@ -307,6 +300,7 @@ namespace Jonsulp
                 && (WindowState == FormWindowState.Maximized))
             {
                 menuStrip1.Visible = true;
+                toolStrip1.Visible = true;
                 image.Dock = DockStyle.None;
                 // Form 상태 변경  
                 FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
@@ -321,7 +315,10 @@ namespace Jonsulp
                 // Form 상태 변경  
                 FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
                 WindowState = FormWindowState.Maximized;
+                menuStrip1.Visible = false;
+                toolStrip1.Visible = false;
             }
+
         }
         #endregion
         #endregion
@@ -368,5 +365,13 @@ namespace Jonsulp
         }
 
         #endregion
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F11)
+            {
+                최대화ToolStripMenuItem1_Click(sender, e);
+            }
+        }
     }
 }
