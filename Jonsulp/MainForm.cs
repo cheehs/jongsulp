@@ -1,36 +1,22 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Collections;
 
 //Additional namespace
-using Microsoft.Office.Core;
-using Microsoft.Office.Interop.PowerPoint;
 using WolframAlphaNET;
-using WolframAlphaNET.Objects;
-using WolframAlphaNET.Misc;
 
 namespace Jonsulp
 {
     public partial class MainForm : Form
     {
-        // ppt temp path
-        string ppt_temp_path = System.Windows.Forms.Application.StartupPath + "\\ppt_temp";
-        
-        // objects
-        Presentation ppt;
-
-        //Image variables
-        private Boolean drag = false;
-        private System.Drawing.Point point;
-
+        PPT ppt;
+        string path;
         // variables
-        int slide = 0;
-        int slide_max = 0;
         string input = "y=(x+1)(x-1)(x-3)";
         int xpos;
         Bitmap gBitmap;
-        char KK='n';
+        ArrayList filelist = new ArrayList();
 
         #region MainForm
         /// <summary>
@@ -40,165 +26,26 @@ namespace Jonsulp
         {
             InitializeComponent();
             text_input.Text = input;
-            pictureBox_image.MouseWheel += new MouseEventHandler(mouse_wheel);
 
+            ppt = new PPT(image);
             QuickSlot qs = new QuickSlot(image);
             Image_control ic = new Image_control(pictureBox_image, this);
+
+            //이미지 파일 목록 불러오기
+            path = System.Windows.Forms.Application.StartupPath + "\\Images\\Maps";
+            foreach (string s in System.IO.Directory.GetFiles(path))
+            {
+                ToolStripMenuItem temp = new ToolStripMenuItem();
+                filelist.Add(s);
+                toolStripMenuItem1.DropDownItems.Add(temp);
+                temp.Name = s.Substring(path.Length + 1);
+                temp.Size = new System.Drawing.Size(152, 22);
+                temp.Text = s.Substring(path.Length + 1);
+                temp.Click += new System.EventHandler(this.contextButton_Click);
+            }
+
         }
         #endregion        
-
-        ~MainForm()
-        {
-            DirectoryInfo di = new DirectoryInfo(ppt_temp_path);
-            di.Delete(true);
-            Dispose();
-        }
-
-        #region LoadFile
-        /// <summary>
-        /// 파일 읽기 함수
-        /// </summary>
-        /// <param name="ofd"></param>
-        /// <returns></returns>
-        private int LoadFile(OpenFileDialog ofd)
-        {
-            ofd.Filter = "Powerpoint 프레젠테이션 (*.ppt;*.pptx)|*.ppt;*.pptx";
-            ofd.Title = "Select a File.";
-            if (ofd.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-                return 1;
-
-            return 0;
-        }
-        #endregion
-
-        #region LoadImage
-        /// <summary>
-        /// 이미지의 주소를 이미지 picturebox에 올리는 함수
-        /// </summary>
-        /// <param name="path">이미지의 주소</param>
-        private void LoadImage(string path, Control control)
-        {
-            control.Visible = true;
-            ((PictureBox)control).ImageLocation = path;
-        }
-        #endregion
-
-        #region LoadPPT
-        /// <summary>
-        /// PPT파일을 ppt객체에 저장하는 함수?
-        /// </summary>
-        /// <param name="path">PPT파일의 주소</param>
-        /// <returns>ppt파일의 정보가 담긴 ppt객체</returns>
-        private Presentation LoadPPT(string path)
-        {
-            ApplicationClass app = new ApplicationClass();
-            Presentation ppt = app.Presentations.Open
-                (
-                path,
-                MsoTriState.msoTrue,
-                MsoTriState.msoFalse,
-                MsoTriState.msoFalse
-                );
-
-            app.Quit();
-            return ppt;
-        }
-        #endregion
-
-        #region MakePPTImage
-        /// <summary>
-        /// ppt객체를 가지고 PPT를 이미지로 변환하는 함수
-        /// </summary>
-        /// <param name="ppt">ppt내용이 담긴 ppt객체</param>
-        private void MakePPTimage(Presentation ppt)
-        {
-            string picturesPath = ppt_temp_path;
-            MakeDir(picturesPath);
-            slide_max = ppt.Slides.Count;
-            for (int i = 0; i < ppt.Slides.Count; ++i)
-            {
-                ppt.Slides[i + 1].Export
-                    (
-                    string.Format("{0}\\temp{1}.jpg", picturesPath, i),
-                    "JPG",
-                    (int)ppt.Slides[i + 1].Master.Width,
-                    (int)ppt.Slides[i + 1].Master.Height
-                    );
-            }
-        }
-        #endregion
-
-        #region DisplayPPTImage
-        /// <summary>
-        /// ppt슬라이드를 LoadImage함수로 전달하는 함수
-        /// </summary>
-        /// <param name="slide">슬라이드 번호</param>
-        private void DisplayPPTimage(int slide)
-        {
-            LoadImage(ppt_temp_path + "\\temp" + slide + ".jpg", image);
-        }
-        #endregion
-
-        #region MakeDir
-        /// <summary>
-        /// 디렉토리 생성
-        /// </summary>
-        /// <param name="path"></param>
-        private void MakeDir(string path)
-        {
-            DirectoryInfo dir = new DirectoryInfo(path);
-            if (!dir.Exists)
-                dir.Create();
-        }
-        #endregion
-
-        #region Display Graph
-        private void display_Graph(string src)
-        {
-            pictureBox_image.Visible = true;
-            pictureBox_image.ImageLocation = src;
-        }
-        #endregion
-
-        //For debug
-        private void printText(string text)
-        {
-            text_debug.Text = text;
-        }
-
-        #region Button 이벤트
-
-        #region Button Prev Click
-        private void button_prev_Click(object sender, EventArgs e)
-        {
-            ppt_prev();
-        }
-        private void ppt_prev()
-        {
-            if (slide <= 0)
-                return;
-
-            slide--;
-            DisplayPPTimage(slide);
-        }
-
-        #endregion
-        
-        #region Button Next Click
-        private void button_next_Click(object sender, EventArgs e)
-        {
-            ppt_next();
-        }
-        private void ppt_next()
-        {
-            if (slide > slide_max)
-                return;
-
-            slide++;
-            DisplayPPTimage(slide);
-        }
-        #endregion
-        #endregion
 
         #region 메뉴 툴팁 이벤트
         #region 툴팁 종료
@@ -225,13 +72,8 @@ namespace Jonsulp
                 pictureBox_image.Image = image1;
                 gBitmap = new Bitmap(image1);
                 pictureBox_image.Visible = true;
+                image.Invalidate();
             }
-
-            //OpenFileDialog ofd = new OpenFileDialog();
-            //if (LoadFile(ofd) != 0)
-            //    return;
-
-            //LoadImage(ofd.FileName, pictureBox_image);
         }
         #endregion
 
@@ -239,31 +81,31 @@ namespace Jonsulp
         private void pPT열기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
-            if (LoadFile(ofd) != 0)
-                return;
-
-            ppt = LoadPPT(ofd.FileName);
-            MakePPTimage(ppt);
-
-            DisplayPPTimage(slide);
+            ppt.openPPT(ofd);
         }
         #endregion
 
         #region 툴팁 그래프
-        public void 그래프ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 그래프ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InkRecognition.InkRecognition ink = new InkRecognition.InkRecognition(
+                new System.Drawing.Point(MousePosition.X, MousePosition.Y)
+                ,'g');
+            ink.Owner = this;
+            ink.Show();
+        }
+
+        public void Plot_graph()
         {
             WolframAlpha wolf = new WolframAlpha("K8WRVX-A3Y7YUUQAV");
             display_Graph(wolf.get_Graph_address(text_input.Text));
             text_input.Text = "";
         }
-        #endregion
 
-        #region 툴팁 서치
-        public void searchToolStripMenuItem_Click(object sender, EventArgs e)
+        private void display_Graph(string src)
         {
-            search web = new search();
-            web.recv(text_input.Text);
-            web.Show();
+            pictureBox_image.Visible = true;
+            pictureBox_image.ImageLocation = src;
         }
         #endregion
 
@@ -271,20 +113,21 @@ namespace Jonsulp
         private void 초기화ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pictureBox_image.Visible = false;
-        }
-        #endregion
-
-        #region 툴팁 필기인식
-        private void 필기인식ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InkRecognition.InkRecognition ink = new InkRecognition.InkRecognition(new System.Drawing.Point(MousePosition.X, MousePosition.Y));
-            ink.Owner = this;
-            ink.Show();
+            image.Enabled = true;
         }
         #endregion
 
         #region 툴팁 웹검색
         private void 웹검색ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InkRecognition.InkRecognition ink = new InkRecognition.InkRecognition(
+                new System.Drawing.Point(MousePosition.X, MousePosition.Y)
+                , 's');
+            ink.Owner = this;
+            ink.Show();
+        }
+
+        public void Search_web()
         {
             search web = new search();
             web.recv(text_input.Text);
@@ -323,35 +166,6 @@ namespace Jonsulp
         #endregion
         #endregion
 
-        #region Image 마우스 이벤트
-
-        #region Image Mouse Wheel
-        /// <summary>
-        /// 이미지 picturebox에서 마우스 휠 이벤트
-        /// 크기를 조절
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void mouse_wheel(object sender, MouseEventArgs e)
-        {
-            if ((e.Delta / 120) > 0)
-            {
-                pictureBox_image.Width += 5;
-                pictureBox_image.Height += 5;
-                //wheel up
-            }
-            else
-            {
-                pictureBox_image.Width -= 5;
-                pictureBox_image.Height -= 5;
-                //wheel down
-            }
-        }
-
-        #endregion
-
-        #endregion
-
         #region PPT 마우스 이벤트
         private void image_MouseDown(object sender, MouseEventArgs e)
         {
@@ -360,8 +174,8 @@ namespace Jonsulp
 
         private void image_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Location.X - xpos > 100) ppt_next();
-            else if (e.Location.X - xpos < -100) ppt_prev();
+            if (e.Location.X - xpos > 100) ppt.ppt_next();
+            else if (e.Location.X - xpos < -100) ppt.ppt_prev();
         }
 
         #endregion
@@ -372,6 +186,39 @@ namespace Jonsulp
             {
                 최대화ToolStripMenuItem1_Click(sender, e);
             }
+        }
+
+        private void toolStripButton7_Click(object sender, EventArgs e)
+        {
+            ppt.ppt_prev();
+        }
+
+        private void toolStripButton8_Click(object sender, EventArgs e)
+        {
+            ppt.ppt_next();
+        }
+
+        void Image_open(string filename)
+        {
+            string openstrFilename = filename;
+            Image image1 = Image.FromFile(openstrFilename);
+
+            pictureBox_image.Image = image1;
+            gBitmap = new Bitmap(image1);
+            pictureBox_image.Visible = true;
+            image.Invalidate();
+        }
+
+        private void 립모션ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Leapmtion temp = new Leapmtion();
+            temp.Show();
+        }
+
+        private void contextButton_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem temp = (ToolStripMenuItem)sender;
+            Image_open(path+"\\"+temp.Text);
         }
     }
 }

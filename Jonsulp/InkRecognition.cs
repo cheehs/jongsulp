@@ -42,6 +42,7 @@ namespace InkRecognition
 	public class InkRecognition : System.Windows.Forms.Form
 	{
         string a;
+        char ind;
         FileStream fs = File.Create("output.txt");
         // Declare the Ink Collector object
         private InkCollector myInkCollector;
@@ -59,9 +60,11 @@ namespace InkRecognition
         #endregion
 
         /// <summary>
-        /// Initialize the form and ink collector
+        /// 생성자
         /// </summary>
-		public InkRecognition(Point location)
+        /// <param name="location">잉크 창이 생성되는 위치</param>
+        /// <param name="ind">g혹은 s, 그래프인지 웹검색인지</param>
+		public InkRecognition(Point location, char ind)
 		{
             #region Standard Template Code
 			//
@@ -71,6 +74,7 @@ namespace InkRecognition
             #endregion          
             Left = location.X;
             Top = location.Y;
+            this.ind = ind;
         }
 
         #region Standard Template Code
@@ -231,7 +235,7 @@ namespace InkRecognition
                 txtResults.SelectedText = myInkCollector.Ink.Strokes.ToString();
                 a = myInkCollector.Ink.Strokes.ToString();
 
-                
+                didyoumean();
 
                 //이 a스트링 활용하면댐
                 // If the mouse is pressed, do not perform the deletion - 
@@ -252,11 +256,33 @@ namespace InkRecognition
             
         }
 
+        private void didyoumean()
+        {
+            for (int i = 0; i < a.Length; i++) {
+                switch (a[i]) {
+                    case '니':
+                        a.Replace('니', 'y');
+                        break;
+                    case '二':
+                        a.Replace('二', '=');
+                        break;
+                    case 'Ⅹ':
+                        a.Replace('Ⅹ', 'x');
+                        break;
+                }
+                a=a.ToLower();
+            }
+        }
+
         private void button_OK_Click(object sender, EventArgs e)
         {
             Jonsulp.MainForm temp = (Jonsulp.MainForm)this.Owner;
             temp.text_input.Text = a;
-            
+            if (ind == 'g') temp.Plot_graph();
+            else
+            {
+                temp.Search_web();
+            }
             Dispose();
         }
 

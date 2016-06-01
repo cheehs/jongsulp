@@ -99,7 +99,7 @@ namespace Jonsulp
         private void DrawControlBorder(object sender)
         {
             Control control = (Control)sender;
-
+            
             Rectangle Border = new Rectangle(
                  new Point(control.Location.X - DRAG_HANDLE_SIZE / 2,
                  control.Location.Y - DRAG_HANDLE_SIZE / 2),
@@ -141,7 +141,7 @@ namespace Jonsulp
             //get the form graphic
             Graphics g = parent.CreateGraphics();
             //draw the border and drag handles
-
+            
             ControlPaint.DrawBorder(g, Border, Color.Gray, ButtonBorderStyle.Dotted);
             ControlPaint.DrawGrabHandle(g, NW, true, true);
             ControlPaint.DrawGrabHandle(g, N, true, true);
