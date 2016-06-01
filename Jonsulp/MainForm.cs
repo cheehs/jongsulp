@@ -33,6 +33,7 @@ namespace Jonsulp
 
             //이미지 파일 목록 불러오기
             path = System.Windows.Forms.Application.StartupPath + "\\Images\\Maps";
+            if (!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
             foreach (string s in System.IO.Directory.GetFiles(path))
             {
                 ToolStripMenuItem temp = new ToolStripMenuItem();
