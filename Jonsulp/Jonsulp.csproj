@@ -51,10 +51,8 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LeapCSharp.NET4.0, Version=2.3.1.0, Culture=neutral, PublicKeyToken=6e1b1368e71eba9b, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\LeapCSharp.NET4.0.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+    <Reference Include="LeapCSharp.NET4.0">
+      <HintPath>reference\LeapCSharp.NET4.0.dll</HintPath>
     </Reference>
     <Reference Include="MathNet.Numerics">
       <HintPath>reference\MathNet.Numerics.dll</HintPath>

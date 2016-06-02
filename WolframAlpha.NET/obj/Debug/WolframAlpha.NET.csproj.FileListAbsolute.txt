@@ -14,3 +14,11 @@ C:\Git\jongsulp\WolframAlpha.NET\bin\Debug\RestSharp.xml
 C:\Git\jongsulp\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.csprojResolveAssemblyReference.cache
 C:\Git\jongsulp\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.dll
 C:\Git\jongsulp\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.pdb
+D:\dev\LeapBoard\jongsulp\WolframAlpha.NET\bin\Debug\WolframAlpha.NET.XML
+D:\dev\LeapBoard\jongsulp\WolframAlpha.NET\bin\Debug\WolframAlpha.NET.dll
+D:\dev\LeapBoard\jongsulp\WolframAlpha.NET\bin\Debug\WolframAlpha.NET.pdb
+D:\dev\LeapBoard\jongsulp\WolframAlpha.NET\bin\Debug\RestSharp.dll
+D:\dev\LeapBoard\jongsulp\WolframAlpha.NET\bin\Debug\RestSharp.xml
+D:\dev\LeapBoard\jongsulp\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.csprojResolveAssemblyReference.cache
+D:\dev\LeapBoard\jongsulp\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.dll
+D:\dev\LeapBoard\jongsulp\WolframAlpha.NET\obj\Debug\WolframAlpha.NET.pdb

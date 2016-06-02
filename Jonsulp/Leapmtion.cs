@@ -25,10 +25,17 @@ namespace Jonsulp
         private Leap.Vector p3;
         private Leap.Vector p4;
 
-        private Rectangle resolution;
-        private Controller controller;
-        private Frame frame;
-        private Pointable pointable;
+        private static Rectangle resolution;
+        private static Controller controller;
+        //private static Pointable pointable;
+        private static plane_equ plane;
+
+        private static Leap.Vector coor;
+        private static Leap.Vector touch;
+        private static Frame frame;
+        private static Hand hand;
+        private static FingerList pointer;
+        private static bool clicked;
 
         public Leapmtion()
         {
@@ -46,6 +53,8 @@ namespace Jonsulp
 
         private void initTimer()
         {
+            clicked = false;
+            plane = new plane_equ(p1, p2, p3, p4, resolution);
             timer = new System.Windows.Forms.Timer();
             timer.Tick += new EventHandler(timer_Tick);
             timer.Interval = 1;
@@ -54,16 +63,13 @@ namespace Jonsulp
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            plane_equ plane = new plane_equ(p1, p2, p3, p4, resolution);
+            coor = get_point();
 
-            Leap.Vector coor;
-            Leap.Vector touch;
-            bool clicked = false;
-
-            frame = controller.Frame();
-            pointable = frame.Pointables.Frontmost;
-            coor = pointable.TipPosition;
+            //frame = controller.Frame();
+            //pointable = frame.Pointables.Frontmost;
+            //coor = pointable.TipPosition;
             //Console.WriteLine(coor);
+
             if (plane.on_plane(coor)<15)
             {
                 touch = plane.get_projected_coor(coor);
@@ -81,10 +87,6 @@ namespace Jonsulp
                         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                         clicked = true;
                     }
-                    else if (plane.on_plane(coor) > 7 && !clicked)
-                    {
-                        mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                    }
                 }
             }
             else if (clicked)
@@ -94,39 +96,37 @@ namespace Jonsulp
                 clicked = false;
             }
 
-            Thread.Sleep(10);
+        }
 
+        private Leap.Vector get_point()
+        {
+            frame = controller.Frame();
+            hand = frame.Hands.Rightmost;
+            pointer = hand.Fingers.FingerType(Finger.FingerType.TYPE_INDEX);
+            return pointer[0].Bone(Bone.BoneType.TYPE_DISTAL).Center;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            frame = controller.Frame();
-            pointable = frame.Pointables.Frontmost;
-            p1 = pointable.TipPosition;
+            p1 = get_point();
             label1.Text = p1.x + " " + p1.y + " " + p1.z;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            frame = controller.Frame();
-            pointable = frame.Pointables.Frontmost;
-            p2 = pointable.TipPosition;
+            p2 = get_point();
             label2.Text = p2.x + " " + p2.y + " " + p2.z;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            frame = controller.Frame();
-            pointable = frame.Pointables.Frontmost;
-            p3 = pointable.TipPosition;
+            p3 = get_point();
             label3.Text = p3.x + " " + p3.y + " " + p3.z;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            frame = controller.Frame();
-            pointable = frame.Pointables.Frontmost;
-            p4 = pointable.TipPosition;
+            p4 = get_point();
             label4.Text = p4.x + " " + p4.y + " " + p4.z;
         }
 
