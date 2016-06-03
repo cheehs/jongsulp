@@ -28,7 +28,7 @@ namespace Jonsulp
             text_input.Text = input;
 
             ppt = new PPT(image);
-            QuickSlot qs = new QuickSlot(image);
+            QuickSlot qs = new QuickSlot(image, this);
             Image_control ic = new Image_control(pictureBox_image, this);
 
             //이미지 파일 목록 불러오기
