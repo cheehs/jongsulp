@@ -169,6 +169,20 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <None Include="Resources\clear.png" />
+    <None Include="Resources\graph.gif" />
+    <None Include="Resources\graph.jpg" />
+    <None Include="Resources\graph.png" />
+    <None Include="Resources\image.png" />
+    <None Include="Resources\ink.png" />
+    <None Include="Resources\left.png" />
+    <None Include="Resources\map.png" />
+    <None Include="Resources\max.png" />
+    <None Include="Resources\ppt %282%29.png" />
+    <None Include="Resources\ppt.png" />
+    <None Include="Resources\right.png" />
+    <None Include="Resources\search %282%29.png" />
+    <None Include="Resources\search.png" />
     <Content Include="Resources\slot_base.png" />
     <Content Include="Resources\slot_exit.png" />
   </ItemGroup>

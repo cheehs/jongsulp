@@ -73,7 +73,7 @@ namespace Jonsulp
                 Size = new Size(Other_Button_Size, Other_Button_Size),
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Location = new Point(SB_S / 2 - SE_S, SB_S / 2 - Other_Button_Size / 2),
-                Image = Resources.ppt_quick_slot,
+                Image = Resources.image,
                 Visible = false,
             };
 
@@ -82,7 +82,7 @@ namespace Jonsulp
                 Size = new Size(Other_Button_Size, Other_Button_Size),
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Location = new Point(SB_S / 2 + SE_S / 2, SB_S / 2 - Other_Button_Size / 2),
-                Image = Resources.graph_quick_slot,
+                Image = Resources.graph2,
                 Visible = false,
             };
 
@@ -91,7 +91,7 @@ namespace Jonsulp
                 Size = new Size(Other_Button_Size, Other_Button_Size),
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Location = new Point(SB_S / 2 - Other_Button_Size / 2, SB_S / 2 + SE_S / 2),
-                Image = Resources.search_quick_slot,
+                Image = Resources.search__2_,
                 Visible = false,
             };
 
@@ -100,7 +100,7 @@ namespace Jonsulp
                 Size = new Size(Other_Button_Size, Other_Button_Size),
                 SizeMode = PictureBoxSizeMode.StretchImage,
                 Location = new Point(SB_S / 2 - Other_Button_Size / 2, SB_S / 2 - SE_S),
-                Image = Resources.image_quick_slot,
+                Image = Resources.image,
                 Visible = false,
             };
 
@@ -175,7 +175,7 @@ namespace Jonsulp
             slot_exit.Visible = true;
 
 
-            img = Resources.ppt_quick_slot;
+            img = Resources.ppt__2_;
             origin = new Bitmap(img);
             newbit = new Bitmap(img.Width, img.Height);
             c = Color.Black;
@@ -193,7 +193,7 @@ namespace Jonsulp
             ppt.Image = newbit;
             ppt.Visible = true;
 
-            img = Resources.image_quick_slot;
+            img = Resources.image;
             origin = new Bitmap(img);
             newbit = new Bitmap(img.Width, img.Height);
             c = Color.Black;
@@ -212,7 +212,7 @@ namespace Jonsulp
             image.Visible = true;
 
 
-            img = Resources.search_quick_slot;
+            img = Resources.search__2_;
             origin = new Bitmap(img);
             newbit = new Bitmap(img.Width, img.Height);
             c = Color.Black;
@@ -230,7 +230,7 @@ namespace Jonsulp
             search.Image = newbit;
             search.Visible = true;
 
-            img = Resources.graph_quick_slot;
+            img = Resources.graph2;
             origin = new Bitmap(img);
             newbit = new Bitmap(img.Width, img.Height);
             c = Color.Black;
