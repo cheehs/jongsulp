@@ -47,7 +47,6 @@ namespace Jonsulp
 
             resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
             controller = new Controller();
-            frame = controller.Frame();
 
         }
 
@@ -70,23 +69,29 @@ namespace Jonsulp
             //coor = pointable.TipPosition;
             //Console.WriteLine(coor);
 
-            if (plane.on_plane(coor)<15)
+            if (plane.on_plane(coor)<30)
             {
                 touch = plane.get_projected_coor(coor);
 
                 if (touch.x >= 0 && touch.x <= resolution.Width
                     && touch.y >= 0 && touch.y <= resolution.Height)
                 {
-                    //Console.WriteLine(touch);
+                    Console.WriteLine(touch);
                     //WindowsHandler.SetCursorPos((int)touch.x, resolution.Height - (int)touch.y);
                     Cursor.Position = new Point((int)touch.x, resolution.Height - (int)touch.y);
 
-                    if (plane.on_plane(coor) < 7 && !clicked)
+                    if (plane.on_plane(coor) < 3 && !clicked)
                     {
                         Console.WriteLine("Clicked");
                         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                         clicked = true;
                     }
+                }
+                else if (clicked)
+                {
+                    Console.WriteLine("Released");
+                    mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
+                    clicked = false;
                 }
             }
             else if (clicked)
@@ -103,7 +108,7 @@ namespace Jonsulp
             frame = controller.Frame();
             hand = frame.Hands.Rightmost;
             pointer = hand.Fingers.FingerType(Finger.FingerType.TYPE_INDEX);
-            return pointer[0].Bone(Bone.BoneType.TYPE_DISTAL).Center;
+            return pointer[0].Bone(Bone.BoneType.TYPE_DISTAL).NextJoint;
         }
 
         private void button1_Click(object sender, EventArgs e)

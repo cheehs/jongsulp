@@ -25,6 +25,7 @@ namespace Jonsulp
 
         private static int SB_S = 200;
         private static int SE_S = 76;
+        private static int xpos;
 
         public QuickSlot(Control control)
         {
@@ -123,7 +124,7 @@ namespace Jonsulp
             else
             {
                 if (opacity < 255)
-                    opacity += 45;
+                    opacity += 90;
                 else
                 {
                     slot_exit.Visible = false;
@@ -198,7 +199,9 @@ namespace Jonsulp
                 {
                     stopWatch.Stop();
 
-                    if (stopWatch.ElapsedMilliseconds >= 500 && !is_animaiting)
+                    if (Math.Abs(e.Location.X - xpos) < 100
+                        && stopWatch.ElapsedMilliseconds >= 500
+                        && !is_animaiting)
                     {
                         show();
                     }
@@ -213,7 +216,10 @@ namespace Jonsulp
             if (e.Button == MouseButtons.Left)
             {
                 if (!is_shown)
+                {
+                    xpos = e.Location.X;
                     stopWatch.Restart();
+                }
             }
         }
 

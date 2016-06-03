@@ -175,8 +175,8 @@ namespace Jonsulp
 
         private void image_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Location.X - xpos > 100) ppt.ppt_next();
-            else if (e.Location.X - xpos < -100) ppt.ppt_prev();
+            if (e.Location.X - xpos > 100) ppt.ppt_prev();
+            else if (e.Location.X - xpos < -100) ppt.ppt_next();
         }
 
         #endregion
