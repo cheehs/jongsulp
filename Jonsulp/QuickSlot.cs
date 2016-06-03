@@ -4,18 +4,35 @@ using System.Diagnostics;
 using System;
 using Jonsulp.Properties;
 
+using System;
+using System.IO;
+using System.Windows.Forms;
+using System.Drawing;
+
+//Additional namespace
+using Microsoft.Office.Core;
+//using Microsoft.Office.Interop.PowerPoint;
+using WolframAlphaNET;
 namespace Jonsulp
 {
-    public class QuickSlot
+    class QuickSlot
     {
         public Panel slot_base;
+
         private PictureBox slot_exit;
+        private PictureBox image;
+        private PictureBox ppt;
+        private PictureBox graph;
+        private PictureBox search;
+
+        private Form parent;
         private Control control;
         private Timer sbTimer = new Timer();
         private Timer siTimer = new Timer();
         private Stopwatch stopWatch = new Stopwatch();
 
         private Point currentCursorPos;
+
         private bool is_shown = false;
         private bool is_animaiting = false;
         private bool showSize = false;
@@ -23,13 +40,14 @@ namespace Jonsulp
         private double tick;
         private int opacity = 255;
 
-        private static int SB_S = 200;
-        private static int SE_S = 76;
+        private static int SB_S = 200;  //Base의size
+        private static int SE_S = 76;   //Exit의 Size
+        private static int Other_Button_Size = 40;  //나머지 버튼들 사이즈
 
-        public QuickSlot(Control control)
+        public QuickSlot(Control control, Form parent)
         {
             this.control = control;
-
+            this.parent = parent;
             //퀵 슬롯 베이스
             slot_base = new Panel
             {
@@ -49,11 +67,59 @@ namespace Jonsulp
                 Image = Resources.slot_exit,
                 Visible = false,
             };
+
+            ppt = new PictureBox
+            {
+                Size = new Size(Other_Button_Size, Other_Button_Size),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Location = new Point(SB_S / 2 - SE_S, SB_S / 2 - Other_Button_Size / 2),
+                Image = Resources.ppt_quick_slot,
+                Visible = false,
+            };
+
+            graph = new PictureBox
+            {
+                Size = new Size(Other_Button_Size, Other_Button_Size),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Location = new Point(SB_S / 2 + SE_S / 2, SB_S / 2 - Other_Button_Size / 2),
+                Image = Resources.graph_quick_slot,
+                Visible = false,
+            };
+
+            search = new PictureBox
+            {
+                Size = new Size(Other_Button_Size, Other_Button_Size),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Location = new Point(SB_S / 2 - Other_Button_Size / 2, SB_S / 2 + SE_S / 2),
+                Image = Resources.search_quick_slot,
+                Visible = false,
+            };
+
+            image = new PictureBox
+            {
+                Size = new Size(Other_Button_Size, Other_Button_Size),
+                SizeMode = PictureBoxSizeMode.StretchImage,
+                Location = new Point(SB_S / 2 - Other_Button_Size / 2, SB_S / 2 - SE_S),
+                Image = Resources.image_quick_slot,
+                Visible = false,
+            };
+
+
             //exit 버튼에 마우스 이벤트 핸들러 추가
             slot_exit.MouseClick += new MouseEventHandler(slot_exitMouseHander);
+            ppt.MouseClick += new MouseEventHandler(pptMouseHander);
+            graph.MouseClick += new MouseEventHandler(graphMouseHander);
+            search.MouseClick += new MouseEventHandler(searchMouseHander);
+            image.MouseClick += new MouseEventHandler(imageMouseHander);
 
-            //퀵 슬롯 base에 exit 버튼 추가
+
+            //퀵 슬롯 base에 버튼 추가
             slot_base.Controls.Add(slot_exit);
+            slot_base.Controls.Add(ppt);
+            slot_base.Controls.Add(search);
+            slot_base.Controls.Add(graph);
+            slot_base.Controls.Add(image);
+
 
             //Form에 퀵 슬롯 추가
             control.Controls.Add(slot_base);
@@ -105,9 +171,82 @@ namespace Jonsulp
                     newbit.SetPixel(x, y, v);
                 }
             }
-
             slot_exit.Image = newbit;
             slot_exit.Visible = true;
+
+
+            img = Resources.ppt_quick_slot;
+            origin = new Bitmap(img);
+            newbit = new Bitmap(img.Width, img.Height);
+            c = Color.Black;
+            v = Color.Black;
+            for (int x = 0; x < img.Width; x++)
+            {
+                for (int y = 0; y < img.Height; y++)
+                {
+                    c = origin.GetPixel(x, y);
+                    int o = c.A - opacity;
+                    v = Color.FromArgb(o > 255 ? 255 : o < 0 ? 0 : o, c.R, c.G, c.B);
+                    newbit.SetPixel(x, y, v);
+                }
+            }
+            ppt.Image = newbit;
+            ppt.Visible = true;
+
+            img = Resources.image_quick_slot;
+            origin = new Bitmap(img);
+            newbit = new Bitmap(img.Width, img.Height);
+            c = Color.Black;
+            v = Color.Black;
+            for (int x = 0; x < img.Width; x++)
+            {
+                for (int y = 0; y < img.Height; y++)
+                {
+                    c = origin.GetPixel(x, y);
+                    int o = c.A - opacity;
+                    v = Color.FromArgb(o > 255 ? 255 : o < 0 ? 0 : o, c.R, c.G, c.B);
+                    newbit.SetPixel(x, y, v);
+                }
+            }
+            image.Image = newbit;
+            image.Visible = true;
+
+
+            img = Resources.search_quick_slot;
+            origin = new Bitmap(img);
+            newbit = new Bitmap(img.Width, img.Height);
+            c = Color.Black;
+            v = Color.Black;
+            for (int x = 0; x < img.Width; x++)
+            {
+                for (int y = 0; y < img.Height; y++)
+                {
+                    c = origin.GetPixel(x, y);
+                    int o = c.A - opacity;
+                    v = Color.FromArgb(o > 255 ? 255 : o < 0 ? 0 : o, c.R, c.G, c.B);
+                    newbit.SetPixel(x, y, v);
+                }
+            }
+            search.Image = newbit;
+            search.Visible = true;
+
+            img = Resources.graph_quick_slot;
+            origin = new Bitmap(img);
+            newbit = new Bitmap(img.Width, img.Height);
+            c = Color.Black;
+            v = Color.Black;
+            for (int x = 0; x < img.Width; x++)
+            {
+                for (int y = 0; y < img.Height; y++)
+                {
+                    c = origin.GetPixel(x, y);
+                    int o = c.A - opacity;
+                    v = Color.FromArgb(o > 255 ? 255 : o < 0 ? 0 : o, c.R, c.G, c.B);
+                    newbit.SetPixel(x, y, v);
+                }
+            }
+            graph.Image = newbit;
+            graph.Visible = true;
 
             if (!is_shown)
             {
@@ -127,6 +266,9 @@ namespace Jonsulp
                 else
                 {
                     slot_exit.Visible = false;
+                    ppt.Visible = false;
+                    graph.Visible = false;
+                    search.Visible = false;
                     siTimer.Stop();
                     sbTimer.Start();
                 }
@@ -221,5 +363,25 @@ namespace Jonsulp
         {
             hide();
         }
+
+        private void pptMouseHander(object sender, MouseEventArgs e)
+        {
+
+        }
+        private void searchMouseHander(object sender, MouseEventArgs e)
+        {
+            
+        }
+        private void graphMouseHander(object sender, MouseEventArgs e)
+        {
+
+        }
+        private void imageMouseHander(object sender, MouseEventArgs e)
+        {
+
+        }
+
+
+
     }
 }
