@@ -56,12 +56,13 @@ namespace Jonsulp
             plane = new plane_equ(p1, p2, p3, p4, resolution);
             timer = new System.Windows.Forms.Timer();
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = 1;
+            timer.Interval = 10;
             timer.Start();
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
+            bool up = false;
             coor = get_point();
 
             //frame = controller.Frame();
@@ -69,38 +70,45 @@ namespace Jonsulp
             //coor = pointable.TipPosition;
             //Console.WriteLine(coor);
 
-            if (plane.on_plane(coor)<30)
+            touch = plane.get_projected_coor(coor);
+
+            if (touch.x >= 0 && touch.x <= resolution.Width
+                && touch.y >= 0 && touch.y <= resolution.Height)
             {
-                touch = plane.get_projected_coor(coor);
-
-                if (touch.x >= 0 && touch.x <= resolution.Width
-                    && touch.y >= 0 && touch.y <= resolution.Height)
+                float res = plane.on_plane(coor);
+                //WindowsHandler.SetCursorPos((int)touch.x, resolution.Height - (int)touch.y);
+                //Console.Write(touch);
+                //Console.Write("\n");
+                //Console.Write(res);
+                if (res < 1000)
                 {
-                    Console.WriteLine(touch);
-                    //WindowsHandler.SetCursorPos((int)touch.x, resolution.Height - (int)touch.y);
                     Cursor.Position = new Point((int)touch.x, resolution.Height - (int)touch.y);
-
-                    if (plane.on_plane(coor) < 3 && !clicked)
+                    if (res < 5)
                     {
                         Console.WriteLine("Clicked");
                         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                         clicked = true;
                     }
+                    else if (res >= 5 && clicked)
+                    {
+                        up = true;
+                    }
                 }
                 else if (clicked)
-                {
-                    Console.WriteLine("Released");
-                    mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-                    clicked = false;
-                }
+                    up = true;
+                
             }
             else if (clicked)
             {
-                Console.WriteLine("Released");
+                up = true;
+            }
+
+            if (up)
+            {
+                Console.WriteLine("Release");
                 mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                 clicked = false;
             }
-
         }
 
         private Leap.Vector get_point()

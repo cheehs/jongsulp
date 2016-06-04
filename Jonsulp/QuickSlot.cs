@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Threading;
 using System;
 using Jonsulp.Properties;
 
@@ -8,14 +9,16 @@ namespace Jonsulp
 {
     public class QuickSlot
     {
-        public Panel slot_base;
-        private PictureBox slot_exit;
+        public static Panel slot_base;
+        private static PictureBox slot_exit;
         private Control control;
-        private Timer sbTimer = new Timer();
-        private Timer siTimer = new Timer();
-        private Stopwatch stopWatch = new Stopwatch();
+        private static System.Windows.Forms.Timer sbTimer = new System.Windows.Forms.Timer();
+        private static System.Windows.Forms.Timer siTimer = new System.Windows.Forms.Timer();
+        private static Stopwatch stopWatch = new Stopwatch();
+        private readonly object meLock = new object();
 
         private Point currentCursorPos;
+        private bool me_active = false;
         private bool is_shown = false;
         private bool is_animaiting = false;
         private bool showSize = false;
@@ -208,6 +211,18 @@ namespace Jonsulp
                 }
                 else
                     hide();
+
+                if (Monitor.TryEnter(meLock))
+                {
+                    try
+                    {
+                        me_active = false;
+                    }
+                    finally
+                    {
+                        Monitor.Exit(meLock);
+                    }
+                }
             }
         }
 
@@ -215,10 +230,27 @@ namespace Jonsulp
         {
             if (e.Button == MouseButtons.Left)
             {
-                if (!is_shown)
+                Console.WriteLine("C");
+                if (Monitor.TryEnter(meLock))
                 {
-                    xpos = e.Location.X;
-                    stopWatch.Restart();
+                    try
+                    {
+                        if (me_active)
+                            return;
+
+                        Console.Write("Enter\n");
+                        me_active = true;
+
+                        if (!is_shown)
+                        {
+                            xpos = e.Location.X;
+                            stopWatch.Restart();
+                        }
+                    }
+                    finally
+                    {
+                        Monitor.Exit(meLock);
+                    }
                 }
             }
         }
