@@ -230,7 +230,6 @@ namespace Jonsulp
         {
             if (e.Button == MouseButtons.Left)
             {
-                Console.WriteLine("C");
                 if (Monitor.TryEnter(meLock))
                 {
                     try
@@ -238,7 +237,6 @@ namespace Jonsulp
                         if (me_active)
                             return;
 
-                        Console.Write("Enter\n");
                         me_active = true;
 
                         if (!is_shown)

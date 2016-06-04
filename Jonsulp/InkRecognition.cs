@@ -235,6 +235,9 @@ namespace InkRecognition
                 txtResults.SelectedText = myInkCollector.Ink.Strokes.ToString();
                 a = myInkCollector.Ink.Strokes.ToString();
 
+                if (a == null)
+                    return;
+
                 didyoumean();
 
                 //이 a스트링 활용하면댐

@@ -60,10 +60,25 @@ namespace Jonsulp
             timer.Start();
         }
 
+        //private bool index_meets_thumb()
+        //{
+        //    Leap.Vector index;
+        //    Leap.Vector thumb;
+
+        //    index = get_point(Finger.FingerType.TYPE_INDEX);
+        //    thumb = get_point(Finger.FingerType.TYPE_THUMB);
+
+        //    double distance = Math.Sqrt(Math.Pow(index.x - thumb.x, 2)
+        //                                + Math.Pow(index.y - thumb.y, 2)
+        //                                + Math.Pow(index.z - thumb.z, 2));
+
+        //    return distance <= 20;
+        //}
+
         private void timer_Tick(object sender, EventArgs e)
         {
             bool up = false;
-            coor = get_point();
+            coor = get_point(Finger.FingerType.TYPE_INDEX);
 
             //frame = controller.Frame();
             //pointable = frame.Pointables.Frontmost;
@@ -80,32 +95,28 @@ namespace Jonsulp
                 //Console.Write(touch);
                 //Console.Write("\n");
                 //Console.Write(res);
-                if (res < 1000)
+                if (res < 100)
                 {
                     Cursor.Position = new Point((int)touch.x, resolution.Height - (int)touch.y);
                     if (res < 5)
                     {
-                        Console.WriteLine("Clicked");
+                        //Console.WriteLine("Clicked");
                         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                         clicked = true;
                     }
-                    else if (res >= 5 && clicked)
-                    {
+                    else if (clicked)
                         up = true;
-                    }
                 }
                 else if (clicked)
                     up = true;
                 
             }
             else if (clicked)
-            {
                 up = true;
-            }
 
             if (up)
             {
-                Console.WriteLine("Release");
+                //Console.WriteLine("Release");
                 mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                 clicked = false;
             }
@@ -115,31 +126,38 @@ namespace Jonsulp
         {
             frame = controller.Frame();
             hand = frame.Hands.Rightmost;
-            pointer = hand.Fingers.FingerType(Finger.FingerType.TYPE_INDEX);
+            return hand.PalmPosition;
+        }
+
+        private Leap.Vector get_point(Leap.Finger.FingerType type)
+        {
+            frame = controller.Frame();
+            hand = frame.Hands.Rightmost;
+            pointer = hand.Fingers.FingerType(type);
             return pointer[0].Bone(Bone.BoneType.TYPE_DISTAL).NextJoint;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            p1 = get_point();
+            p1 = get_point(Finger.FingerType.TYPE_INDEX);
             label1.Text = p1.x + " " + p1.y + " " + p1.z;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            p2 = get_point();
+            p2 = get_point(Finger.FingerType.TYPE_INDEX);
             label2.Text = p2.x + " " + p2.y + " " + p2.z;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            p3 = get_point();
+            p3 = get_point(Finger.FingerType.TYPE_INDEX);
             label3.Text = p3.x + " " + p3.y + " " + p3.z;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            p4 = get_point();
+            p4 = get_point(Finger.FingerType.TYPE_INDEX);
             label4.Text = p4.x + " " + p4.y + " " + p4.z;
         }
 
