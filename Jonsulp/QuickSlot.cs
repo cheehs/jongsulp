@@ -107,10 +107,10 @@ namespace Jonsulp
 
             //exit 버튼에 마우스 이벤트 핸들러 추가
             slot_exit.MouseClick += new MouseEventHandler(slot_exitMouseHander);
-            ppt.MouseClick += new MouseEventHandler(pptMouseHander);
-            graph.MouseClick += new MouseEventHandler(graphMouseHander);
-            search.MouseClick += new MouseEventHandler(searchMouseHander);
-            image.MouseClick += new MouseEventHandler(imageMouseHander);
+            ppt.MouseClick += ((MainForm)parent).pPT열기ToolStripMenuItem_Click;
+            graph.MouseClick += ((MainForm)parent).그래프ToolStripMenuItem_Click;
+            search.MouseClick += ((MainForm)parent).웹검색ToolStripMenuItem_Click;
+            image.MouseClick += ((MainForm)parent).이미지열기ToolStripMenuItem_Click;
 
 
             //퀵 슬롯 base에 버튼 추가

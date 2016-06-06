@@ -18,7 +18,6 @@ namespace Jonsulp
         Bitmap gBitmap;
         ArrayList filelist = new ArrayList();
 
-        #region MainForm
         /// <summary>
         /// MainForm 생성자
         /// </summary>
@@ -46,18 +45,13 @@ namespace Jonsulp
             }
 
         }
-        #endregion        
 
-        #region 메뉴 툴팁 이벤트
-        #region 툴팁 종료
         private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Dispose();
         }
-        #endregion
 
-        #region 툴팁 이미지열기
-        private void 이미지열기ToolStripMenuItem_Click(object sender, EventArgs e)
+        public void 이미지열기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
 
@@ -76,18 +70,14 @@ namespace Jonsulp
                 image.Invalidate();
             }
         }
-        #endregion
 
-        #region 툴팁 PPT열기
-        private void pPT열기ToolStripMenuItem_Click(object sender, EventArgs e)
+        public void pPT열기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ppt.openPPT(ofd);
         }
-        #endregion
 
-        #region 툴팁 그래프
-        private void 그래프ToolStripMenuItem_Click(object sender, EventArgs e)
+        public void 그래프ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InkRecognition.InkRecognition ink = new InkRecognition.InkRecognition(
                 new System.Drawing.Point(MousePosition.X, MousePosition.Y)
@@ -108,18 +98,14 @@ namespace Jonsulp
             pictureBox_image.Visible = true;
             pictureBox_image.ImageLocation = src;
         }
-        #endregion
 
-        #region 툴팁 클리어
-        private void 초기화ToolStripMenuItem_Click(object sender, EventArgs e)
+        public void 초기화ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pictureBox_image.Visible = false;
             image.Enabled = true;
         }
-        #endregion
 
-        #region 툴팁 웹검색
-        private void 웹검색ToolStripMenuItem_Click(object sender, EventArgs e)
+        public void 웹검색ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InkRecognition.InkRecognition ink = new InkRecognition.InkRecognition(
                 new System.Drawing.Point(MousePosition.X, MousePosition.Y)
@@ -134,9 +120,7 @@ namespace Jonsulp
             web.recv(text_input.Text);
             web.Show();
         }
-        #endregion
 
-        #region 툴팁 최대화
         private void 최대화ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             // 현재 Full-Screen 모드일 경우 처리  
@@ -164,10 +148,7 @@ namespace Jonsulp
             }
 
         }
-        #endregion
-        #endregion
 
-        #region PPT 마우스 이벤트
         private void image_MouseDown(object sender, MouseEventArgs e)
         {
             xpos = e.Location.X;
@@ -178,8 +159,6 @@ namespace Jonsulp
             if (e.Location.X - xpos > 100) ppt.ppt_next();
             else if (e.Location.X - xpos < -100) ppt.ppt_prev();
         }
-
-        #endregion
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
