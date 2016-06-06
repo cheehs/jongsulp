@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Diagnostics;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace Jonsulp
 {
@@ -29,11 +30,13 @@ namespace Jonsulp
         private Point newLoc;
         private Size newSize;
         private Timer timer1;
+        private Bitmap gBitmap;
 
         public Image_control(Control control, Form parent)
         {
             pictureBox_Control = control;
             this.parent = parent;
+            gBitmap = new Bitmap(((PictureBox)control).Image);
             pictureBox_Control.MouseEnter += control_MouseEnter;
             pictureBox_Control.MouseLeave += control_MouseLeave;
             pictureBox_Control.MouseDown += control_MouseDown;
@@ -81,7 +84,7 @@ namespace Jonsulp
                 nextpnt = parent.PointToClient(Control.MousePosition);
                 nextpnt.Offset(mouseX, mouseY);
                 control.Location = nextpnt;
-                parent.Invalidate();
+                ((MainForm)parent).image.Enabled = false;
             }
         }
 
@@ -140,6 +143,7 @@ namespace Jonsulp
                 new Size(DRAG_HANDLE_SIZE, DRAG_HANDLE_SIZE));
             //get the form graphic
             Graphics g = parent.CreateGraphics();
+            
             //draw the border and drag handles
             
             ControlPaint.DrawBorder(g, Border, Color.Gray, ButtonBorderStyle.Dotted);
@@ -193,11 +197,16 @@ namespace Jonsulp
                 else if (dir == Direction.NE)
                 {
                     //north east, location, width and height change
-                    newLoc = new Point(SelectedControl.Location.X, pos.Y);
-                    newSize = new Size(pos.X - SelectedControl.Location.X,
-                        SelectedControl.Height - (pos.Y - SelectedControl.Location.Y));
-                    SelectedControl.Location = newLoc;
-                    SelectedControl.Size = newSize;
+                    //newLoc = new Point(SelectedControl.Location.X, pos.Y);
+                    //newSize = new Size(pos.X - SelectedControl.Location.X,
+                    //    SelectedControl.Height - (pos.Y - SelectedControl.Location.Y));
+                    //SelectedControl.Location = newLoc;
+                    //SelectedControl.Size = newSize;
+
+                    PictureBox temp_control = (PictureBox)pictureBox_Control;
+
+                    RotateImage(temp_control, 100 * ((float)Math.Atan2(((temp_control.Location.Y + (temp_control.Height / 2)) - e.X),
+                        ((temp_control.Location.X + (temp_control.Width / 2)) - e.X))));
                 }
 
                 else if (dir == Direction.W)
@@ -366,6 +375,42 @@ namespace Jonsulp
                 parent.Cursor = Cursors.Default;
             }
             #endregion
+        }
+        private void RotateImage(PictureBox pb, float angle)
+        {
+
+            Image oldImage = pb.Image;
+
+            int w = gBitmap.Width;
+            int h = gBitmap.Height;
+
+
+            Bitmap tempImg = new Bitmap(w, h);
+            Graphics g = Graphics.FromImage(tempImg);
+            g.Clear(Color.Transparent);
+            g.DrawImageUnscaled(gBitmap, 1, 1);
+            g.Dispose();
+
+            GraphicsPath path = new GraphicsPath();
+            path.AddRectangle(new RectangleF(0f, 0f, w, h));
+            Matrix mtrx = new Matrix();
+            //Using System.Drawing.Drawing2D.Matrix class 
+            mtrx.Rotate(angle);
+            RectangleF rct = path.GetBounds(mtrx);
+            Bitmap newImg = new Bitmap(Convert.ToInt32(rct.Width), Convert.ToInt32(rct.Height));
+            g = Graphics.FromImage(newImg);
+            g.Clear(Color.Transparent);
+            g.TranslateTransform(-rct.X, -rct.Y);
+            g.RotateTransform(angle);
+            g.InterpolationMode = InterpolationMode.HighQualityBilinear;
+            g.DrawImageUnscaled(tempImg, 0, 0);
+            g.Dispose();
+            tempImg.Dispose();
+
+            pb.Image = newImg;
+            if (oldImage != null)
+                oldImage.Dispose();
+
         }
     }
 }

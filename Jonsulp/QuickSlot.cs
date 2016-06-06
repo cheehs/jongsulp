@@ -20,7 +20,6 @@ namespace Jonsulp
     {
         public static Panel slot_base;
         private static PictureBox slot_exit;
-        private PictureBox slot_exit;
         private PictureBox image;
         private PictureBox ppt;
         private PictureBox graph;
@@ -110,7 +109,7 @@ namespace Jonsulp
 
             //exit 버튼에 마우스 이벤트 핸들러 추가
             slot_exit.MouseClick += new MouseEventHandler(slot_exitMouseHander);
-            ppt.MouseClick += ((MainForm)parent).pPT열기ToolStripMenuItem_Click;
+            ppt.MouseClick += ((MainForm)parent).PPT열기ToolStripMenuItem_Click;
             graph.MouseClick += ((MainForm)parent).그래프ToolStripMenuItem_Click;
             search.MouseClick += ((MainForm)parent).웹검색ToolStripMenuItem_Click;
             image.MouseClick += ((MainForm)parent).이미지열기ToolStripMenuItem_Click;
@@ -151,7 +150,7 @@ namespace Jonsulp
             sbTimer.Start();
         }
 
-        private void hide()
+        public void hide()
         {
             siTimer.Start();
         }

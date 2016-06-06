@@ -10,24 +10,26 @@ namespace Jonsulp
 {
     public partial class MainForm : Form
     {
-        PPT ppt;
-        string path;
         // variables
-        string input = "y=(x+1)(x-1)(x-3)";
-        int xpos;
-        Bitmap gBitmap;
-        ArrayList filelist = new ArrayList();
+        private string input = "y=(x+1)(x-1)(x-3)";
+        private string path;
+        private int xpos;
 
-        /// <summary>
-        /// MainForm 생성자
-        /// </summary>
+        //Objects
+        private Bitmap gBitmap;
+        private ArrayList filelist = new ArrayList();
+        private PPT ppt;
+        private QuickSlot qs;
+
+        //*********************************************
+        //생성자
         public MainForm()
         {
             InitializeComponent();
             text_input.Text = input;
 
             ppt = new PPT(image);
-            QuickSlot qs = new QuickSlot(image, this);
+            qs = new QuickSlot(image, this);
             Image_control ic = new Image_control(pictureBox_image, this);
 
             //이미지 파일 목록 불러오기
@@ -43,12 +45,26 @@ namespace Jonsulp
                 temp.Text = s.Substring(path.Length + 1);
                 temp.Click += new System.EventHandler(this.contextButton_Click);
             }
+            path = System.Windows.Forms.Application.StartupPath + "\\Images\\Figures";
+            if (!System.IO.Directory.Exists(path)) System.IO.Directory.CreateDirectory(path);
+            foreach (string s in System.IO.Directory.GetFiles(path))
+            {
+                ToolStripMenuItem temp = new ToolStripMenuItem();
+                filelist.Add(s);
+                toolStripMenuItem2.DropDownItems.Add(temp);
+                temp.Name = s.Substring(path.Length + 1);
+                temp.Size = new System.Drawing.Size(152, 22);
+                temp.Text = s.Substring(path.Length + 1);
+                temp.Click += new System.EventHandler(this.contextButton_Click);
+            }
 
         }
 
+        //******************************************************
+        //클릭 이벤트
         private void 종료ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            Dispose();
         }
 
         public void 이미지열기ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -58,7 +74,7 @@ namespace Jonsulp
             openFileDialog1.Title = "이미지";
             openFileDialog1.Filter = "Image Files(*.jpg;*.jpeg;*.gif;*.bmp;*.png)|*.jpg;*.jpeg;*.gif;*.bmp;*.png";
             string openstrFilename;
-
+            qs.hide();
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 openstrFilename = openFileDialog1.FileName;
@@ -71,10 +87,11 @@ namespace Jonsulp
             }
         }
 
-        public void pPT열기ToolStripMenuItem_Click(object sender, EventArgs e)
+        public void PPT열기ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ppt.openPPT(ofd);
+            qs.hide();
         }
 
         public void 그래프ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -84,6 +101,7 @@ namespace Jonsulp
                 ,'g');
             ink.Owner = this;
             ink.Show();
+            qs.hide();
         }
 
         public void Plot_graph()
@@ -103,6 +121,7 @@ namespace Jonsulp
         {
             pictureBox_image.Visible = false;
             image.Enabled = true;
+            qs.hide();
         }
 
         public void 웹검색ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -112,6 +131,7 @@ namespace Jonsulp
                 , 's');
             ink.Owner = this;
             ink.Show();
+            qs.hide();
         }
 
         public void Search_web()
@@ -138,7 +158,6 @@ namespace Jonsulp
             // 현재 Full-Screen 모드가 아닐 경우 처리  
             else
             {
-                //menuStrip1.Visible = false;
                 image.Dock = DockStyle.Fill;
                 // Form 상태 변경  
                 FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -147,25 +166,6 @@ namespace Jonsulp
                 toolStrip1.Visible = false;
             }
 
-        }
-
-        private void image_MouseDown(object sender, MouseEventArgs e)
-        {
-            xpos = e.Location.X;
-        }
-
-        private void image_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Location.X - xpos > 100) ppt.ppt_prev();
-            else if (e.Location.X - xpos < -100) ppt.ppt_next();
-        }
-
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.F11)
-            {
-                최대화ToolStripMenuItem1_Click(sender, e);
-            }
         }
 
         private void toolStripButton7_Click(object sender, EventArgs e)
@@ -178,7 +178,47 @@ namespace Jonsulp
             ppt.ppt_next();
         }
 
-        void Image_open(string filename)
+        private void 립모션ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Leapmtion temp = new Leapmtion();
+            temp.Show();
+        }
+
+        private void contextButton_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem temp = (ToolStripMenuItem)sender;
+            Image_open(path + "\\" + temp.Text);
+        }
+
+        //******************************************************
+        //마우스 이벤트
+        private void image_MouseDown(object sender, MouseEventArgs e)
+        {
+            xpos = e.Location.X;
+        }
+
+        private void image_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Location.X - xpos > 100) ppt.ppt_prev();
+            else if (e.Location.X - xpos < -100) ppt.ppt_next();
+        }
+
+        private void image_DoubleClick(object sender, EventArgs e)
+        {
+            초기화ToolStripMenuItem_Click(sender, e);
+        }
+
+        //******************************************************
+        //키보드 이벤트
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F11)
+            {
+                최대화ToolStripMenuItem1_Click(sender, e);
+            }
+        }
+
+        private void Image_open(string filename)
         {
             string openstrFilename = filename;
             Image image1 = Image.FromFile(openstrFilename);
@@ -189,16 +229,5 @@ namespace Jonsulp
             image.Invalidate();
         }
 
-        private void 립모션ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Leapmtion temp = new Leapmtion();
-            temp.Show();
-        }
-
-        private void contextButton_Click(object sender, EventArgs e)
-        {
-            ToolStripMenuItem temp = (ToolStripMenuItem)sender;
-            Image_open(path+"\\"+temp.Text);
-        }
     }
 }

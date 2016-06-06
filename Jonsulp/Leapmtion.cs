@@ -98,6 +98,7 @@ namespace Jonsulp
                 if (res < 100)
                 {
                     Cursor.Position = new Point((int)touch.x, resolution.Height - (int)touch.y);
+                    Cursor = Cursors.Hand;
                     if (res < 5)
                     {
                         //Console.WriteLine("Clicked");
@@ -119,6 +120,7 @@ namespace Jonsulp
                 //Console.WriteLine("Release");
                 mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                 clicked = false;
+                Cursor = Cursors.Default;
             }
         }
 

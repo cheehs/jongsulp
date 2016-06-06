@@ -100,8 +100,8 @@ namespace Jonsulp
                     (
                     string.Format("{0}\\temp{1}.jpg", picturesPath, i),
                     "JPG",
-                    (int)ppt.Slides[i + 1].Master.Width,
-                    (int)ppt.Slides[i + 1].Master.Height
+                    (int)ppt.Slides[i + 1].Master.Width*2,
+                    (int)ppt.Slides[i + 1].Master.Height*2
                     );
             }
         }

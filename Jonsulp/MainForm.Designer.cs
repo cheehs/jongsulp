@@ -102,7 +102,7 @@
             this.pPTToolStripMenuItem.Name = "pPTToolStripMenuItem";
             this.pPTToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.pPTToolStripMenuItem.Text = "PPT";
-            this.pPTToolStripMenuItem.Click += new System.EventHandler(this.pPT열기ToolStripMenuItem_Click);
+            this.pPTToolStripMenuItem.Click += new System.EventHandler(this.PPT열기ToolStripMenuItem_Click);
             // 
             // graphToolStripMenuItem
             // 
@@ -184,7 +184,7 @@
             this.pPT열기ToolStripMenuItem.Name = "pPT열기ToolStripMenuItem";
             this.pPT열기ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.pPT열기ToolStripMenuItem.Text = "PPT 열기";
-            this.pPT열기ToolStripMenuItem.Click += new System.EventHandler(this.pPT열기ToolStripMenuItem_Click);
+            this.pPT열기ToolStripMenuItem.Click += new System.EventHandler(this.PPT열기ToolStripMenuItem_Click);
             // 
             // 종료ToolStripMenuItem
             // 
@@ -295,7 +295,7 @@
             this.toolStripButton5.Name = "toolStripButton5";
             this.toolStripButton5.Size = new System.Drawing.Size(47, 22);
             this.toolStripButton5.Text = "PPT";
-            this.toolStripButton5.Click += new System.EventHandler(this.pPT열기ToolStripMenuItem_Click);
+            this.toolStripButton5.Click += new System.EventHandler(this.PPT열기ToolStripMenuItem_Click);
             // 
             // toolStripButton6
             // 
@@ -396,6 +396,7 @@
             this.pictureBox_image.TabIndex = 0;
             this.pictureBox_image.TabStop = false;
             this.pictureBox_image.Visible = false;
+            this.pictureBox_image.DoubleClick += new System.EventHandler(this.image_DoubleClick);
             // 
             // image
             // 
@@ -444,7 +445,6 @@
         #endregion
 
         private System.Windows.Forms.Label text_debug;
-        private System.Windows.Forms.PictureBox image;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 이미지열기ToolStripMenuItem;
@@ -482,6 +482,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem 립모션ToolStripMenuItem;
+        public System.Windows.Forms.PictureBox image;
     }
 }
 
