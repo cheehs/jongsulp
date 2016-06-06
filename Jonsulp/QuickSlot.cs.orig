@@ -18,8 +18,9 @@ namespace Jonsulp
 {
     class QuickSlot
     {
-        public static Panel slot_base;
-        private static PictureBox slot_exit;
+<<<<<<< HEAD
+        public Panel slot_base;
+
         private PictureBox slot_exit;
         private PictureBox image;
         private PictureBox ppt;
@@ -27,6 +28,10 @@ namespace Jonsulp
         private PictureBox search;
 
         private Form parent;
+=======
+        public static Panel slot_base;
+        private static PictureBox slot_exit;
+>>>>>>> master
         private Control control;
         private static System.Windows.Forms.Timer sbTimer = new System.Windows.Forms.Timer();
         private static System.Windows.Forms.Timer siTimer = new System.Windows.Forms.Timer();
@@ -34,7 +39,11 @@ namespace Jonsulp
         private readonly object meLock = new object();
 
         private Point currentCursorPos;
+<<<<<<< HEAD
+
+=======
         private bool me_active = false;
+>>>>>>> master
         private bool is_shown = false;
         private bool is_animaiting = false;
         private bool showSize = false;
@@ -42,10 +51,15 @@ namespace Jonsulp
         private double tick;
         private int opacity = 255;
 
+<<<<<<< HEAD
         private static int SB_S = 200;  //Base의size
         private static int SE_S = 76;   //Exit의 Size
         private static int Other_Button_Size = 40;  //나머지 버튼들 사이즈
+=======
+        private static int SB_S = 200;
+        private static int SE_S = 76;
         private static int xpos;
+>>>>>>> master
 
         public QuickSlot(Control control, Form parent)
         {
@@ -174,7 +188,6 @@ namespace Jonsulp
                     newbit.SetPixel(x, y, v);
                 }
             }
-
             slot_exit.Image = newbit;
             slot_exit.Visible = true;
 

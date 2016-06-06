@@ -156,8 +156,8 @@ namespace Jonsulp
 
         private void image_MouseUp(object sender, MouseEventArgs e)
         {
-            if (e.Location.X - xpos > 100) ppt.ppt_next();
-            else if (e.Location.X - xpos < -100) ppt.ppt_prev();
+            if (e.Location.X - xpos > 100) ppt.ppt_prev();
+            else if (e.Location.X - xpos < -100) ppt.ppt_next();
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)

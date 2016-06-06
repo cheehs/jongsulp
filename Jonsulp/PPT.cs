@@ -22,7 +22,11 @@ namespace Jonsulp
         ~PPT()
         {
             DirectoryInfo dir = new DirectoryInfo(ppt_temp_path);
-            FileInfo[] files = dir.GetFiles("*.*", SearchOption.AllDirectories);
+            FileInfo[] files;
+            if (dir.Exists)
+                files = dir.GetFiles("*.*", SearchOption.AllDirectories);
+            else
+                return;
 
             foreach (FileInfo file in files)
             {

@@ -47,7 +47,6 @@ namespace Jonsulp
 
             resolution = System.Windows.Forms.Screen.PrimaryScreen.Bounds;
             controller = new Controller();
-            frame = controller.Frame();
 
         }
 
@@ -57,76 +56,108 @@ namespace Jonsulp
             plane = new plane_equ(p1, p2, p3, p4, resolution);
             timer = new System.Windows.Forms.Timer();
             timer.Tick += new EventHandler(timer_Tick);
-            timer.Interval = 1;
+            timer.Interval = 10;
             timer.Start();
         }
 
+        //private bool index_meets_thumb()
+        //{
+        //    Leap.Vector index;
+        //    Leap.Vector thumb;
+
+        //    index = get_point(Finger.FingerType.TYPE_INDEX);
+        //    thumb = get_point(Finger.FingerType.TYPE_THUMB);
+
+        //    double distance = Math.Sqrt(Math.Pow(index.x - thumb.x, 2)
+        //                                + Math.Pow(index.y - thumb.y, 2)
+        //                                + Math.Pow(index.z - thumb.z, 2));
+
+        //    return distance <= 20;
+        //}
+
         private void timer_Tick(object sender, EventArgs e)
         {
-            coor = get_point();
+            bool up = false;
+            coor = get_point(Finger.FingerType.TYPE_INDEX);
 
             //frame = controller.Frame();
             //pointable = frame.Pointables.Frontmost;
             //coor = pointable.TipPosition;
             //Console.WriteLine(coor);
 
-            if (plane.on_plane(coor)<15)
+            touch = plane.get_projected_coor(coor);
+
+            if (touch.x >= 0 && touch.x <= resolution.Width
+                && touch.y >= 0 && touch.y <= resolution.Height)
             {
-                touch = plane.get_projected_coor(coor);
-
-                if (touch.x >= 0 && touch.x <= resolution.Width
-                    && touch.y >= 0 && touch.y <= resolution.Height)
+                float res = plane.on_plane(coor);
+                //WindowsHandler.SetCursorPos((int)touch.x, resolution.Height - (int)touch.y);
+                //Console.Write(touch);
+                //Console.Write("\n");
+                //Console.Write(res);
+                if (res < 100)
                 {
-                    //Console.WriteLine(touch);
-                    //WindowsHandler.SetCursorPos((int)touch.x, resolution.Height - (int)touch.y);
                     Cursor.Position = new Point((int)touch.x, resolution.Height - (int)touch.y);
-
-                    if (plane.on_plane(coor) < 7 && !clicked)
+                    if (res < 5)
                     {
-                        Console.WriteLine("Clicked");
+                        //Console.WriteLine("Clicked");
                         mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
                         clicked = true;
                     }
+                    else if (clicked)
+                        up = true;
                 }
+                else if (clicked)
+                    up = true;
+                
             }
             else if (clicked)
+                up = true;
+
+            if (up)
             {
-                Console.WriteLine("Released");
+                //Console.WriteLine("Release");
                 mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
                 clicked = false;
             }
-
         }
 
         private Leap.Vector get_point()
         {
             frame = controller.Frame();
             hand = frame.Hands.Rightmost;
-            pointer = hand.Fingers.FingerType(Finger.FingerType.TYPE_INDEX);
-            return pointer[0].Bone(Bone.BoneType.TYPE_DISTAL).Center;
+            return hand.PalmPosition;
+        }
+
+        private Leap.Vector get_point(Leap.Finger.FingerType type)
+        {
+            frame = controller.Frame();
+            hand = frame.Hands.Rightmost;
+            pointer = hand.Fingers.FingerType(type);
+            return pointer[0].Bone(Bone.BoneType.TYPE_DISTAL).NextJoint;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            p1 = get_point();
+            p1 = get_point(Finger.FingerType.TYPE_INDEX);
             label1.Text = p1.x + " " + p1.y + " " + p1.z;
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            p2 = get_point();
+            p2 = get_point(Finger.FingerType.TYPE_INDEX);
             label2.Text = p2.x + " " + p2.y + " " + p2.z;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            p3 = get_point();
+            p3 = get_point(Finger.FingerType.TYPE_INDEX);
             label3.Text = p3.x + " " + p3.y + " " + p3.z;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            p4 = get_point();
+            p4 = get_point(Finger.FingerType.TYPE_INDEX);
             label4.Text = p4.x + " " + p4.y + " " + p4.z;
         }
 

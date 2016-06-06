@@ -20,6 +20,11 @@ namespace Jonsulp
 
         public plane_equ(Leap.Vector a, Leap.Vector b, Leap.Vector c, Leap.Vector d, Rectangle resolution)
         {
+            b.z = c.z = d.z = a.z;
+            b.y = a.y;
+            c.x = a.x;
+            d.x = b.x;
+            d.y = c.y;
             Leap.Vector temp1 = b - a;
             Leap.Vector temp2 = c - a;
             this.resolution = resolution;
@@ -34,9 +39,10 @@ namespace Jonsulp
             p[0] = a;
             p[1] = b;
             p[2] = c;
-            p[3] = point_on_plane(d);
+            p[3] = d;
+            //p[3] = point_on_plane(d);
 
-            size_plane();
+            //size_plane();
             calc_homogeneous_matrix();
         }
 
@@ -53,27 +59,27 @@ namespace Jonsulp
             return res;
         }
 
-        public float size_triangle(Leap.Vector a, Leap.Vector b, Leap.Vector c)
-        {
-            Leap.Vector t;
-            float res;
+        //public float size_triangle(Leap.Vector a, Leap.Vector b, Leap.Vector c)
+        //{
+        //    Leap.Vector t;
+        //    float res;
 
-            b = b - a;
-            c = c - a;
-            t = new Leap.Vector(b.y * c.z - b.z * c.y, b.z * c.x - b.x * c.z, b.x * c.y - b.y * c.x);
-            res = (float)Math.Sqrt(t.x * t.x + t.y * t.y + t.z * t.z) / 2;
+        //    b = b - a;
+        //    c = c - a;
+        //    t = new Leap.Vector(b.y * c.z - b.z * c.y, b.z * c.x - b.x * c.z, b.x * c.y - b.y * c.x);
+        //    res = (float)Math.Sqrt(t.x * t.x + t.y * t.y + t.z * t.z) / 2;
 
-            return res;
-        }
+        //    return res;
+        //}
 
-        public void size_plane()
-        {
-            Leap.Vector t1 = p[3] - p[0];
-            Leap.Vector t2 = p[2] - p[1];
-            Leap.Vector t = new Leap.Vector(t1.y * t2.z - t1.z * t2.y, t1.z * t2.x - t1.x * t2.z, t1.x * t2.y - t1.y * t2.x);
+        //public void size_plane()
+        //{
+        //    Leap.Vector t1 = p[3] - p[0];
+        //    Leap.Vector t2 = p[2] - p[1];
+        //    Leap.Vector t = new Leap.Vector(t1.y * t2.z - t1.z * t2.y, t1.z * t2.x - t1.x * t2.z, t1.x * t2.y - t1.y * t2.x);
 
-            size = (float)Math.Sqrt(t.x * t.x + t.y * t.y + t.z * t.z) / 2;
-        }
+        //    size = (float)Math.Sqrt(t.x * t.x + t.y * t.y + t.z * t.z) / 2;
+        //}
 
         public Leap.Vector get_projected_coor(Leap.Vector coor)
         {
@@ -83,6 +89,10 @@ namespace Jonsulp
             v = H.Multiply(v);
 
             return new Leap.Vector((float)v[0] * 100, (float)v[1] * 100, 0);
+
+            //float x = coor.x / Math.Abs(p[1].x - p[0].x) * (float) resolution.Width;
+            //float y = coor.y / Math.Abs(p[0].y - p[2].y) * (float) resolution.Height;
+            //return new Leap.Vector(x, y, 0);
         }
 
         public void calc_homogeneous_matrix()
@@ -141,12 +151,12 @@ namespace Jonsulp
             Console.WriteLine(H);
         }
 
-        public bool check_inside(Leap.Vector v)
-        {
-            float temp = size_triangle(p[0], p[1], v) + size_triangle(p[1], p[3], v) + size_triangle(p[2], p[3], v) + size_triangle(p[0], p[2], v);
-            //Console.WriteLine("<"+temp+" "+size+">");
-            return temp > size ? false : true;
-        }
+        //public bool check_inside(Leap.Vector v)
+        //{
+        //    float temp = size_triangle(p[0], p[1], v) + size_triangle(p[1], p[3], v) + size_triangle(p[2], p[3], v) + size_triangle(p[0], p[2], v);
+        //    //Console.WriteLine("<"+temp+" "+size+">");
+        //    return temp > size ? false : true;
+        //}
 
         public float distance_from_plane_to_point(Leap.Vector point)
         {
@@ -159,11 +169,15 @@ namespace Jonsulp
         {
             //Console.WriteLine(distance_from_plane_to_point(a));
             // && check_inside(point_on_plane(a))
-            float result = distance_from_plane_to_point(a);
-            if (result < 15)
-                return result;
-            else
-                return 10000;
+            if (a.z < p[0].z)
+                return 0;
+
+            return distance_from_plane_to_point(a);
+
+            //if (result < 15)
+            //    return result;
+            //else
+            //    return 10000;
         }
     }
 }
